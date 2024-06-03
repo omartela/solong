@@ -6,18 +6,11 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 12:46:18 by omartela          #+#    #+#             */
-/*   Updated: 2024/05/31 15:33:52 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:48:15 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-typedef	struct s_img
-{
-	mlx_t *mlx;
-	mlx_image_t *image;
-	mlx_texture_t *texture;
-} img_t;
 
 /*
 int	check_collision(mlx_image_t *img1, mlx_image_t *img2)
@@ -34,9 +27,9 @@ int	check_collision(mlx_image_t *img1, mlx_image_t *img2)
 void	ft_hook(void *param)
 {
 	mlx_t	*mlx;
-	img_t	*params;
+	t_img	*params;
 
-	params = (img_t *)param;
+	params = (t_img *)param;
 	mlx = params->mlx;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
@@ -50,60 +43,39 @@ void	ft_hook(void *param)
 		params->image->instances[0].x += 5;
 }
 
-static void	error(void)
+void	insert_image_to_window(void *content)
 {
-	puts(mlx_strerror(mlx_errno));
-	exit(EXIT_FAILURE);
+	t_img	*img;
+
+	img = (t_img *)content;
+	mlx_image_to_window(img->mlx, img->image, 0, 0);
 }
 
-void	load_texture(char *str, img_t *i_s)
+void	set_image_position(t_img *img, int n_instance, int pos_x, int pos_y)
 {
-	mlx_texture_t	*texture;
-
-	texture = mlx_load_png(str);
-	if (!texture)
-		error();
-	i_s->texture = texture;
+	img->image->instances[n_instance].x = pos_x;
+	img->image->instances[n_instance].y = pos_y;
 }
 
-void	load_image(char *str, mlx_t *mlx, img_t *i_s)
-{
-	mlx_image_t		*img;
-
-	load_texture(str, i_s);
-	img = mlx_texture_to_image(mlx, i_s->texture);
-	if (!img)
-		error();
-	i_s->image = img;
-}
-
-void	insert_image_to_window(mlx_t *mlx, mlx_image_t *img)
-{
-	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
-		error();
-}
-
-int32_t	main(void)
+int	main(void)
 {
 	mlx_t		*mlx;
-	img_t i_s1;
-	img_t i_s2;
+	t_list		*llist;
 
+	llist = NULL;
 	mlx = mlx_init(512, 512, "Test", true);
 	if (!mlx)
 		error();
-	i_s1.mlx = mlx;
-	i_s2.mlx = mlx;
-	load_image("DwarfSprite1.png", mlx, &i_s1);
-	load_image("golddiamond.png", mlx, &i_s2);
-	insert_image_to_window(mlx, i_s1.image);
-	insert_image_to_window(mlx, i_s2.image);
-	i_s2.image->instances[0].y += 200;
-	i_s2.image->instances[0].x += 200;
-	mlx_loop_hook(mlx, ft_hook, &i_s1);
+	load_images_to_struct(&llist, "DwarfSprite1.png", mlx);
+	load_images_to_struct(&llist, "golddiamond.png", mlx);
+	load_images_to_struct(&llist, "Rock1.png", mlx);
+	insert_image_to_window(llist->next->next->content);
+	set_image_position(llist->next->next->content, 1, 100, 100);	
+	ft_lstiter(llist, &insert_image_to_window);
+	mlx_loop_hook(mlx, ft_hook, llist->content);
 	mlx_loop(mlx);
-	mlx_delete_image(mlx, i_s1.image);
-	mlx_delete_image(mlx, i_s2.image);
+	//mlx_delete_image(mlx, i_s1.image);
+	//mlx_delete_image(mlx, i_s2.image);
 	//mlx_delete_texture(texture);
     // Optional, terminate will clean up any leftover images (not textures!)
 	mlx_terminate(mlx);
