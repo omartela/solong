@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 12:46:18 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/03 14:48:15 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:27:21 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ void	ft_hook(void *param)
 		params->image->instances[0].x += 5;
 }
 
-void	insert_image_to_window(void *content)
+void	insert_image_to_window(void *content, int x, int y)
 {
 	t_img	*img;
 
 	img = (t_img *)content;
-	mlx_image_to_window(img->mlx, img->image, 0, 0);
+	mlx_image_to_window(img->mlx, img->image, x, y);
 }
 
-void	set_image_position(t_img *img, int n_instance, int pos_x, int pos_y)
+void	set_image_position(t_img *img, int pos_x, int pos_y)
 {
-	img->image->instances[n_instance].x = pos_x;
-	img->image->instances[n_instance].y = pos_y;
+	img->image->instances[1].x = pos_x;
+	img->image->instances[1].y = pos_y;
 }
 
 int	main(void)
@@ -63,15 +63,20 @@ int	main(void)
 	t_list		*llist;
 
 	llist = NULL;
-	mlx = mlx_init(512, 512, "Test", true);
+	mlx = mlx_init(500, 500, "Test", true);
 	if (!mlx)
 		error();
 	load_images_to_struct(&llist, "DwarfSprite1.png", mlx);
 	load_images_to_struct(&llist, "golddiamond.png", mlx);
 	load_images_to_struct(&llist, "Rock1.png", mlx);
-	insert_image_to_window(llist->next->next->content);
-	set_image_position(llist->next->next->content, 1, 100, 100);	
-	ft_lstiter(llist, &insert_image_to_window);
+	//insert_image_to_window(llist->next->next->content);
+	//set_image_position(llist->next->next->content, 100, 100);
+	//ft_lstiter(llist, &insert_image_to_window);
+	insert_image_to_window(llist->content, 0, 0);
+	insert_image_to_window(llist->next->content, 50, 50);
+	insert_image_to_window(llist->next->next->content, 100, 100);
+	insert_image_to_window(llist->next->next->content, 150, 150);
+	//read_map("testmap.ber", &llist);
 	mlx_loop_hook(mlx, ft_hook, llist->content);
 	mlx_loop(mlx);
 	//mlx_delete_image(mlx, i_s1.image);

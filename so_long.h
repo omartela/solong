@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/05 11:30:26 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:28:32 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ void	load_texture(char *str, t_img *i_s);
 void	load_image(char *str, mlx_t *mlx, t_img *i_s);
 void	error(void);
 void	load_images_to_struct(t_list **llist, char *str, mlx_t *mlx);
-
+void	set_image_position(t_img *img, int pos_x, int pos_y);
+void	insert_image_to_window(void *content, int x, int y);
+void	read_map(char *map, t_list **llist);
 #endif
