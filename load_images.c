@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:32:17 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/05 16:28:50 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:30:33 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -21,6 +21,15 @@ void	load_images_to_struct(t_list **llist, char *str, mlx_t *mlx)
 	load_image(str, mlx, img_s);
 	new = ft_lstnew(img_s);
 	ft_lstadd_back(llist, new);
+}
+
+void	delete_img_node(void *content)
+{
+	t_img	*img_s;
+
+	img_s = (t_img *)content;
+	mlx_delete_image(img_s->mlx, img_s->image);
+	mlx_delete_texture(img_s->texture);	
 }
 
 void	error(void)
