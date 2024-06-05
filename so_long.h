@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/03 10:10:33 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:30:26 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "MLX42/include/MLX42/MLX42.h"
 # include "libft/libft.h"
 # include "libft/get_next_line.h"
+# include <fcntl.h>
 
 typedef struct s_img
 {
