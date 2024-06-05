@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:34:42 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/05 20:05:26 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:14:14 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -20,7 +20,7 @@ void	extract_map_data(char *line, t_list **llist, int y)
 	{
 		if (line[x] == 'P')
 		{
-			insert_image_to_window((*llist)->content, 0, 0);
+			insert_image_to_window((*llist)->content, x * 40, y * 20);
 		}
 		else if (line[x] == 'C')
 		{
