@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/05 16:28:32 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:52:52 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ typedef struct s_img
 	mlx_image_t		*image;
 	mlx_texture_t	*texture;
 }	t_img;
+
+typedef struct s_game
+{
+	int			move_count;
+	mlx_t		*mlx;
+}	t_game;
 
 void	load_texture(char *str, t_img *i_s);
 void	load_image(char *str, mlx_t *mlx, t_img *i_s);
