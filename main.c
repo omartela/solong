@@ -1,3 +1,4 @@
+??? from here until ???END lines may have been inserted/deleted
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,21 +7,83 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 12:46:18 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/05 20:56:55 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/05 23:17:41 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
 
-int check_collision(mlx_image_t *img1, mlx_image_t *img2)
+int check_collision(mlx_image_t *img1, mlx_image_t *img2, int i)
 {
-    if ((unsigned int)img1->instances[0].x < (unsigned int)img2->instances[0].x + img2->width &&
-        (unsigned int)(img1->instances[0].x + img1->width) > (unsigned int)img2->instances[0].x &&
-        (unsigned int)img1->instances[0].y < (unsigned int)img2->instances[0].y + img2->height &&
-        (unsigned int)(img1->instances[0].y + img1->height) > (unsigned int)img2->instances[0].y)
+    if ((unsigned int)img1->instances[i].x < (unsigned int)img2->instances[i].x + img2->width &&
+        (unsigned int)img1->instances[i].x + img1->width > (unsigned int)img2->instances[i].x &&
+        (unsigned int)img1->instances[i].y < (unsigned int)img2->instances[i].y + img2->height &&
+        (unsigned int)(img1->instances[i].y + img1->height) > (unsigned int)img2->instances[i].y)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+int check_movement_collision_y(mlx_image_t *img1, mlx_image_t *img2, int i, int movement)
+{
+	int new_y;
+
+    new_y = img1->instances[i].y - movement;
+    if ((unsigned int)img1->instances[i].x < (unsigned int)img2->instances[i].x + img2->width &&
+        (unsigned int)(img1->instances[i].x + img1->width) > (unsigned int)img2->instances[i].x &&
+        (unsigned int)new_y < (unsigned int)img2->instances[i].y + img2->height &&
+        (unsigned int)new_y + img1->height > (unsigned int)img2->instances[i].y)
+	{
+        return 1;
+	}
+
+    return 0;
+}
+
+
+int check_movement_collision_x(mlx_image_t *img1, mlx_image_t *img2, int i, int movement)
+{
+	int new_x;
+
+    new_x = img1->instances[i].x - movement;
+    if ((unsigned int)new_x < (unsigned int)img2->instances[i].x + img2->width &&
+        (unsigned int)new_x + img1->width > (unsigned int)img2->instances[i].x &&
+        (unsigned int)img1->instances[i].y < (unsigned int)img2->instances[i].y + img2->height &&
+        (unsigned int)(img1->instances[i].y + img1->height) > (unsigned int)img2->instances[i].y)
     {
         return 1;
     }
     return 0;
+}
+
+
+int check_obstacle(void *obstacle, t_img *p, int movement)
+{
+	t_img	*obstacle;
+	int		i;
+
+	obstacle = (t_img *)obstacle;
+	while (i < obstacle->image.count)
+	{
+		if (check_movement_collision_x(obstacle, p, i, movement))
+			return (1);
+	}
+}
+
+int check_collectable(void *content, t_img *p)
+{
+	t_img	*collectable;
+	int		i;
+
+	i = 0;
+	collectable = (t_img *)content;
+	while (i < collectable->image.count)
+	{
+		if (check_collision(collectable, p, i))
+			return (1);
+		++i;
+	}
+	return (0);
 }
 
 void	ft_hook(void *param)
@@ -35,9 +98,21 @@ void	ft_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		params->image->instances[0].y -= 1;
+	{
+		if (check_obstacle(llist->next->next->content, 1))
+		{
+			params->image->instances[0].y -= 1;
+			check_collectable(llist->next->content, params);
+		}
+	}
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		params->image->instances[0].y += 1;
+	{
+		if (check_obstacle(llist->next->next->content, 1)
+		{
+			params->image->instances[0].y += 1;
+			check_collectable(llist->next->content, params);
+		}
+	}
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 		params->image->instances[0].x -= 1;
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
