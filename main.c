@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:05:25 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/07 11:32:21 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:19:22 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -114,13 +114,13 @@ int	check_exit(void *content, t_img *p)
 	collectable = (t_img *)content;
 	if (check_collision(collectable->image, p->image, 0))
 	{
-		mlx_close_window(collectable->mlx);;
+		mlx_close_window(collectable->mlx);
 		return (1);
 	}
 	return (0);
 }
 
-void	ft_hook(void *param)
+void	ft_hook(mlx_key_data_t keydata, void *param)
 {
 	mlx_t	*mlx;
 	t_img	*params;
@@ -129,9 +129,9 @@ void	ft_hook(void *param)
 	llist = (t_list *)param;
 	params = (t_img *)llist->content;
 	mlx = params->mlx;
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
+	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
 	{
 		if (!check_obstacle(llist->next->next->content, params, -TILE_SIZE, 'y'))
 		{
@@ -140,7 +140,7 @@ void	ft_hook(void *param)
 			check_exit(llist->next->next->next->content, params);
 		}
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
+	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
 	{
 		if (!check_obstacle(llist->next->next->content, params, TILE_SIZE, 'y'))
 		{
@@ -149,7 +149,7 @@ void	ft_hook(void *param)
 			check_exit(llist->next->next->next->content, params);
 		}
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
 	{
 		if (!check_obstacle(llist->next->next->content, params, -TILE_SIZE, 'x'))
 		{
@@ -158,7 +158,7 @@ void	ft_hook(void *param)
 			check_exit(llist->next->next->next->content, params);
 		}
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
 	{
 		if (!check_obstacle(llist->next->next->content, params, TILE_SIZE, 'x'))
 		{
@@ -207,15 +207,15 @@ int	main(int argc, char *argv[])
 	load_images_to_struct(&llist, "amethyst.png", mlx);
 	load_images_to_struct(&llist, "Rock Pile 1 - AZURE - small.PNG", mlx);
 	load_images_to_struct(&llist, "Door02.png", mlx);
-	//resize_image(llist->content, 32, 32);
-	//resize_image(llist->next->content, 32, 32);
-	//resize_image(llist->next->next->content, 32, 32);
-	//resize_image(llist->next->next->next->content, 32, 32);
+	resize_image(llist->content, 32, 32);
+	resize_image(llist->next->content, 32, 32);
+	resize_image(llist->next->next->content, 32, 32);
+	resize_image(llist->next->next->next->content, 32, 32);
 	//insert_image_to_window(llist->next->next->content);
 	//set_image_position(llist->next->next->content, 100, 100);
 	//ft_lstiter(llist, &insert_image_to_window);
 	read_map(argv[1], &llist);
-	mlx_loop_hook(mlx, ft_hook, llist);
+	mlx_key_hook(mlx, &ft_hook, llist);
 	mlx_loop(mlx);
 	//mlx_delete_image(mlx, i_s1.image);
 	//mlx_delete_image(mlx, i_s2.image);
