@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:05:25 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/07 15:19:22 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:47:46 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -221,6 +221,7 @@ int	main(int argc, char *argv[])
 	//mlx_delete_image(mlx, i_s2.image);
 	//mlx_delete_texture(texture);
     // Optional, terminate will clean up any leftover images (not textures!)
+	ft_lstclear(&llist, &delete_img_node);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 }
