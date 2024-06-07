@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:32:17 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/05 20:30:33 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:17:39 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -29,7 +29,7 @@ void	delete_img_node(void *content)
 
 	img_s = (t_img *)content;
 	mlx_delete_image(img_s->mlx, img_s->image);
-	mlx_delete_texture(img_s->texture);	
+	free(img_s);
 }
 
 void	error(void)
@@ -57,4 +57,5 @@ void	load_image(char *str, mlx_t *mlx, t_img *i_s)
 	if (!img)
 		error();
 	i_s->image = img;
+	mlx_delete_texture(i_s->texture);
 }
