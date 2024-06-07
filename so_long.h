@@ -6,12 +6,14 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/06 12:52:52 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:35:53 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
+
+# define TILE_SIZE 32
 
 # include <stdio.h>
 # include <unistd.h>

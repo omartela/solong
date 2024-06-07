@@ -6,11 +6,11 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:34:42 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/05 20:14:14 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:45:00 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
-
+#include "stdio.h"
 // error handling for the map
 // implement check that in the map there is no symbols which are not allowed.
 // implement check that player cant reach collectable or door
@@ -25,20 +25,24 @@ void	extract_map_data(char *line, t_list **llist, int y)
 	{
 		if (line[x] == 'P')
 		{
-			insert_image_to_window((*llist)->content, x * 40, y * 40);
+			insert_image_to_window((*llist)->content, x * TILE_SIZE, y * TILE_SIZE);
 		}
 		else if (line[x] == 'C')
 		{
-			insert_image_to_window((*llist)->next->content, x * 40, y * 40);
+			insert_image_to_window((*llist)->next->content, x * TILE_SIZE, y * TILE_SIZE);
 		}
 		else if (line[x] == '1')
 		{
-			insert_image_to_window((*llist)->next->next->content, x * 40, y * 40);
+			insert_image_to_window((*llist)->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
 		}
-		//else if (line[x] == 'E')
-		//{
-			//insert_image_to_window((*llist)->next->next->next->content, x * 10, y * 10);
-		//}
+		else if (line[x] == 'E')
+		{
+			insert_image_to_window((*llist)->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
+		}
+		else if (line[x] == '0')
+		{
+			insert_image_to_window((*llist)->next->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
+		}
 		++x;
 	}
 }

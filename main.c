@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:05:25 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/06 13:07:08 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:32:21 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -107,6 +107,19 @@ int	check_collectable(void *content, t_img *p)
 	return (0);
 }
 
+int	check_exit(void *content, t_img *p)
+{
+	t_img	*collectable;
+
+	collectable = (t_img *)content;
+	if (check_collision(collectable->image, p->image, 0))
+	{
+		mlx_close_window(collectable->mlx);;
+		return (1);
+	}
+	return (0);
+}
+
 void	ft_hook(void *param)
 {
 	mlx_t	*mlx;
@@ -120,37 +133,42 @@ void	ft_hook(void *param)
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 	{
-		if (!check_obstacle(llist->next->next->content, params, -1, 'y'))
+		if (!check_obstacle(llist->next->next->content, params, -TILE_SIZE, 'y'))
 		{
-			params->image->instances[0].y -= 1;
+			params->image->instances[0].y -= TILE_SIZE;
 			check_collectable(llist->next->content, params);
+			check_exit(llist->next->next->next->content, params);
 		}
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
 	{
-		if (!check_obstacle(llist->next->next->content, params, 1, 'y'))
+		if (!check_obstacle(llist->next->next->content, params, TILE_SIZE, 'y'))
 		{
-			params->image->instances[0].y += 1;
+			params->image->instances[0].y += TILE_SIZE;
 			check_collectable(llist->next->content, params);
+			check_exit(llist->next->next->next->content, params);
 		}
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
-		if (!check_obstacle(llist->next->next->content, params, -1, 'x'))
+		if (!check_obstacle(llist->next->next->content, params, -TILE_SIZE, 'x'))
 		{
-			params->image->instances[0].x -= 1;
+			params->image->instances[0].x -= TILE_SIZE;
 			check_collectable(llist->next->content, params);
+			check_exit(llist->next->next->next->content, params);
 		}
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
-		if (!check_obstacle(llist->next->next->content, params, 1, 'x'))
+		if (!check_obstacle(llist->next->next->content, params, TILE_SIZE, 'x'))
 		{
-			params->image->instances[0].x += 1;
+			params->image->instances[0].x += TILE_SIZE;
 			check_collectable(llist->next->content, params);
+			check_exit(llist->next->next->next->content, params);
 		}
 	}
 }
+
 void	resize_image(void *content, unsigned int x, unsigned int y)
 {
 	t_img	*img;
@@ -180,16 +198,19 @@ int	main(int argc, char *argv[])
 	//char		**game;
 
 	llist = NULL;
-	argc = 2;
-	mlx = mlx_init(500, 500, "Dwarf & Diamonds", true);
+	if (argc)
+		argc = 3;
+	mlx = mlx_init(480, 480, "Dwarf & Diamonds", true);
 	if (!mlx)
 		error();
 	load_images_to_struct(&llist, "DwarfSprite1.png", mlx);
-	load_images_to_struct(&llist, "Gems A 1.png", mlx);
+	load_images_to_struct(&llist, "amethyst.png", mlx);
 	load_images_to_struct(&llist, "Rock Pile 1 - AZURE - small.PNG", mlx);
-	resize_image(llist->content, 40, 40);
-	resize_image(llist->next->content, 40, 40);
-	resize_image(llist->next->next->content, 40, 40);
+	load_images_to_struct(&llist, "Door02.png", mlx);
+	//resize_image(llist->content, 32, 32);
+	//resize_image(llist->next->content, 32, 32);
+	//resize_image(llist->next->next->content, 32, 32);
+	//resize_image(llist->next->next->next->content, 32, 32);
 	//insert_image_to_window(llist->next->next->content);
 	//set_image_position(llist->next->next->content, 100, 100);
 	//ft_lstiter(llist, &insert_image_to_window);
