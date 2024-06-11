@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/07 15:47:16 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:54:57 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@
 # include "libft/libft.h"
 # include "libft/get_next_line.h"
 # include <fcntl.h>
+
+typedef struct s_bfs
+{
+	int	front;
+	int	back;
+	int	q[100][2];
+	int	visited[1000][1000];
+	int	directions[4][2];
+}	t_bfs;
 
 typedef struct s_img
 {
