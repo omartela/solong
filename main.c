@@ -191,15 +191,15 @@ void	set_image_position(t_img *img, int pos_x, int pos_y)
 	img->image->instances[1].y = pos_y;
 }
 
-int	main(int argc, char *argv[])
+int init_game(t_game game)
 {
 	mlx_t		*mlx;
 	t_list		*llist;
-	//char		**game;
 
 	llist = NULL;
-	if (argc)
-		argc = 3;
+	read_map(&game);
+	if (!validate_map(game))
+		return (0);
 	mlx = mlx_init(480, 480, "Dwarf & Diamonds", true);
 	if (!mlx)
 		error();
@@ -211,17 +211,22 @@ int	main(int argc, char *argv[])
 	resize_image(llist->next->content, TILE_SIZE, TILE_SIZE);
 	resize_image(llist->next->next->content, TILE_SIZE, TILE_SIZE);
 	resize_image(llist->next->next->next->content, TILE_SIZE, TILE_SIZE);
-	//insert_image_to_window(llist->next->next->content);
-	//set_image_position(llist->next->next->content, 100, 100);
-	//ft_lstiter(llist, &insert_image_to_window);
-	read_map(argv[1], &llist);
+
 	mlx_key_hook(mlx, &ft_hook, llist);
 	mlx_loop(mlx);
-	//mlx_delete_image(mlx, i_s1.image);
-	//mlx_delete_image(mlx, i_s2.image);
-	//mlx_delete_texture(texture);
     // Optional, terminate will clean up any leftover images (not textures!)
 	ft_lstclear(&llist, &delete_img_node);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
+}
+
+int	main(int argc, char *argv[])
+{
+	t_game		game;
+
+	if (argc == 2)
+	{
+		game.filename = argv[1];
+		init_game(game);
+	}
 }

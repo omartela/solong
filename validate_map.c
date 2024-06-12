@@ -6,24 +6,12 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 13:03:58 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/12 13:04:01 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:32:14 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
 
-int	validate_map_char(char c)
-{
-	if (ft_strchr("PC1E0", c))
-	{
-		return (1);
-	}
-	else
-	{
-		return (0);
-	}
-}
-
-int	validate_walls_sides(t_game *game)
+static int	validate_walls_sides(t_game *game)
 {
 	size_t	h;
 
@@ -44,7 +32,7 @@ int	validate_walls_sides(t_game *game)
 	return (1);
 }
 
-int	validate_walls_top_bot(t_game *game)
+static int	validate_walls_top_bot(t_game *game)
 {
 	size_t	w;
 
@@ -65,7 +53,7 @@ int	validate_walls_top_bot(t_game *game)
 	return (1);
 }
 
-int	validate_rectangle(t_game *game)
+static int	validate_rectangle(t_game *game)
 {
 	size_t	h;
 	size_t	w;
@@ -82,7 +70,17 @@ int	validate_rectangle(t_game *game)
 	return (1);
 }
 
-void	validate_map(char **map, size_t y)
+int	validate_map(t_game *game)
 {
-	start_bfs(map, y);
+	if (!validate_rectangle(game))
+		return (0);
+	if (!validate_walls_sides(game))
+		return (0);
+	if (!validate_walls_top_bot(game))
+		return (0);
+	if (!validate_map_chars_and_ext(game))
+		return (0);
+	if (!start_bfs(game->map, game->map_height))
+		return (0);
+	return (1);
 }

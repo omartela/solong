@@ -93,24 +93,14 @@ void	free_map(char **map, int i)
 	free(map);
 }
 
-/* void validate_rectangle(char **map)
-{
-	size_t i;
-	size_t j;
-} */
-void	validate_map(char **map, size_t y)
-{
-	start_bfs(map, y);
-}
-
-void	read_map(char *file, t_list **llist)
+void	read_map(t_game *game)
 {
 	int		fd;
 	char	**map;
 	size_t	ln;
 	char	*line;
 
-	fd = open(file, O_RDONLY);
+	fd = open(game->filename, O_RDONLY);
 	if (fd == -1)
 		return ;
 	line = get_next_line(fd);
@@ -129,7 +119,6 @@ void	read_map(char *file, t_list **llist)
 	ln = 1;
 	while (line != NULL)
 	{
-		extract_map_data(line, llist, ln - 1);
 		line = get_next_line(fd);
 		map = ft_realloc(map, ln * sizeof(char *), (ln + 1) * sizeof(char *));
 		if (!map)
@@ -143,6 +132,9 @@ void	read_map(char *file, t_list **llist)
 		++ln;
 	}
 	/// index start from 0 so that is why (line numbers)ln - 1
-	validate_map(map, ln - 1);
+	game->map_height = ln - 1;
+	/// Every line has /0 character so thats why -1 so dont take that into account.
+	game->map_width = ft_strlen(map[0]) - 1;
+	game->map = map;
 	close(fd);
 }

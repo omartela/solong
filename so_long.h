@@ -44,6 +44,7 @@ typedef struct s_game
 	int			move_count;
 	mlx_t		*mlx;
 	char		**map;
+	char		*filename;
 	size_t		map_width;
 	size_t		map_height;
 	size_t		collectibles;
@@ -59,7 +60,7 @@ void	error(void);
 void	load_images_to_struct(t_list **llist, char *str, mlx_t *mlx);
 void	set_image_position(t_img *img, int pos_x, int pos_y);
 void	insert_image_to_window(void *content, int x, int y);
-void	read_map(char *map, t_list **llist);
+void	read_map(t_game *game);
 void	delete_img_node(void *content);
 int		start_bfs(char **map, size_t y);
 #endif
