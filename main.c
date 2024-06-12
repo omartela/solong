@@ -207,10 +207,10 @@ int	main(int argc, char *argv[])
 	load_images_to_struct(&llist, "amethyst.png", mlx);
 	load_images_to_struct(&llist, "Rock Pile 1 - AZURE - small.PNG", mlx);
 	load_images_to_struct(&llist, "Door02.png", mlx);
-	resize_image(llist->content, 32, 32);
-	resize_image(llist->next->content, 32, 32);
-	resize_image(llist->next->next->content, 32, 32);
-	resize_image(llist->next->next->next->content, 32, 32);
+	resize_image(llist->content, TILE_SIZE, TILE_SIZE);
+	resize_image(llist->next->content, TILE_SIZE, TILE_SIZE);
+	resize_image(llist->next->next->content, TILE_SIZE, TILE_SIZE);
+	resize_image(llist->next->next->next->content, TILE_SIZE, TILE_SIZE);
 	//insert_image_to_window(llist->next->next->content);
 	//set_image_position(llist->next->next->content, 100, 100);
 	//ft_lstiter(llist, &insert_image_to_window);
