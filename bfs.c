@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:02:33 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/11 18:48:17 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:35:40 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -69,6 +69,8 @@ void	bfs(char **game_map, int start_x, int start_y)
 	int		current_y;
 
 	init_bfs(&bfs);
+	printf("test in bfs function \n");
+	printf("testing %d, %d", start_x, start_y);
 	push(&bfs, start_x, start_y);
 	visited[start_x][start_y] = 1;
 	while (bfs.front != bfs.back)
@@ -81,67 +83,60 @@ void	bfs(char **game_map, int start_x, int start_y)
 	}
 }
 
-int main() 
+int	start_bfs(char **game_map, size_t y) 
 {
-    // Define the game map
-    char *game_map[] = 
+	size_t	start_x;
+	size_t	start_y;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (i < y)
 	{
-        "111111111111111",
-        "1P  1C        1",
-        "1   1   1     1",
-        "1  11 11111   1",
-        "1C    1C      1",
-        "111  11111  111",
-        "1      1     C1",
-        "11111 111111111",
-        "1      1     E1",
-        "11 1111  1111 1",
-        "1   1    1    1",
-        "1  11 11 1 1111",
-        "1C      1    11",
-        "111111111111111",
-		"111111111111111",
-		NULL
-    };
-
-    // Find the starting position of the player 'P'
-    int start_x, start_y;
-    for (int i = 0; i < 15; i++) {
-        for (int j = 0; j < 15; j++) {
-            if (game_map[i][j] == 'P') {
-                start_x = i;
-                start_y = j;
-                break;
-            }
-        }
-    }
-
-    // Perform BFS starting from the player's position
+		j = 0;
+		while (j < y)
+		{
+			if (game_map[i][j] == 'P')
+			{
+				start_x = i;
+				start_y = j;
+				break;
+			}
+			++j;
+		}
+		++i;
+	}
 	bfs(game_map, start_x, start_y);
 
 	int collectibles_visited = 1;
 	int exit_visited = 1;
 
-    for (int i = 0; i < 15; i++)
+	i = 0;
+	j = 0;
+
+	while (i < y)
 	{
-        for (int j = 0; j < 15; j++) 
+		while (j < y)
 		{
-            if (game_map[i][j] == 'C' && visited[i][j] == 0)
+			if (game_map[i][j] == 'C' && visited[i][j] == 0)
 			{
-                collectibles_visited = 0;
-            }
-            if (game_map[i][j] == 'E' && visited[i][j] == 0) 
+				collectibles_visited = 0;
+			}
+			if (game_map[i][j] == 'E' && visited[i][j] == 0)
 			{
-                exit_visited = 0;
-            }
-        }
+				exit_visited = 0;
+			}
+			++j;
+		}
+		++i;
 	}
 
 	printf("collectibles_visited %d\n", collectibles_visited);
 	printf("exit_visited %d\n", exit_visited);
 	if (collectibles_visited && exit_visited)
-		printf("map is valid"); 
+		printf("map is valid");
 
-    return 0;
+	return (0);
 }
 

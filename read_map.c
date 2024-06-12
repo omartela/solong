@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:34:42 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/10 14:00:07 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:34:16 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -83,11 +83,31 @@ void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 	return (new_ptr);
 }
 
+void	free_map(char **map, int i)
+{
+	while (i > 0)
+	{
+		i--;
+		free(map[i]);
+	}
+	free(map);
+}
+
+/* void validate_rectangle(char **map)
+{
+	size_t i;
+	size_t j;
+} */
+void	validate_map(char **map, size_t y)
+{
+	start_bfs(map, y);
+}
+
 void	read_map(char *file, t_list **llist)
 {
 	int		fd;
 	char	**map;
-	int		lines_read;
+	size_t	ln;
 	char	*line;
 
 	fd = open(file, O_RDONLY);
@@ -106,20 +126,23 @@ void	read_map(char *file, t_list **llist)
 		return ;
 	}
 	map[0] = line;
-	lines_read = 1;
+	ln = 1;
 	while (line != NULL)
 	{
-		extract_map_data(line, llist, lines_read - 1);
+		extract_map_data(line, llist, ln - 1);
 		line = get_next_line(fd);
-		map = ft_realloc(map, lines_read * sizeof(char *), (lines_read + 1) * sizeof(char *));
+		map = ft_realloc(map, ln * sizeof(char *), (ln + 1) * sizeof(char *));
 		if (!map)
 		{
+			free_map(map, ln);
 			free(line);
 			close(fd);
 			return ;
 		}
-		map[lines_read] = line;
-		++lines_read;
+		map[ln] = line;
+		++ln;
 	}
+	/// index start from 0 so that is why (line numbers)ln - 1
+	validate_map(map, ln - 1);
 	close(fd);
 }

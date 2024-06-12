@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/11 17:54:57 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:30:36 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ typedef struct s_game
 {
 	int			move_count;
 	mlx_t		*mlx;
+	char		**map;
+	size_t		map_width;
+	size_t		map_height;
+	size_t		collectibles;
+	size_t		players;
+	size_t		exits;
+	size_t		player_x;
+	size_t		player_y;
 }	t_game;
 
 void	load_texture(char *str, t_img *i_s);
@@ -53,4 +61,5 @@ void	set_image_position(t_img *img, int pos_x, int pos_y);
 void	insert_image_to_window(void *content, int x, int y);
 void	read_map(char *map, t_list **llist);
 void	delete_img_node(void *content);
+int		start_bfs(char **map, size_t y);
 #endif
