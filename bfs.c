@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:02:33 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/12 11:35:40 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:25:25 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -69,61 +69,53 @@ void	bfs(char **game_map, int start_x, int start_y)
 	int		current_y;
 
 	init_bfs(&bfs);
-	printf("test in bfs function \n");
-	printf("testing %d, %d", start_x, start_y);
 	push(&bfs, start_x, start_y);
 	visited[start_x][start_y] = 1;
 	while (bfs.front != bfs.back)
 	{
 		current_x = bfs.q[bfs.front][0];
 		current_y = bfs.q[bfs.front][1];
-		printf("(%d, %d) -> ", current_x, current_y);
 		pop(&bfs);
 		check_directions(&bfs, game_map, current_x, current_y);
 	}
 }
 
-int	start_bfs(char **game_map, size_t y) 
+int	start_bfs(t_game *game) 
 {
-	size_t	start_x;
-	size_t	start_y;
 	size_t	i;
 	size_t	j;
+	int		collectibles_visited = 1;
+	int 	exit_visited = 1;
+
 
 	i = 0;
 	j = 0;
-	while (i < y)
+	while (i < game->map_height)
 	{
 		j = 0;
-		while (j < y)
+		while (j < game->map_height)
 		{
-			if (game_map[i][j] == 'P')
+			if (game->map[j][i] == 'P')
 			{
-				start_x = i;
-				start_y = j;
 				break;
 			}
 			++j;
 		}
 		++i;
 	}
-	bfs(game_map, start_x, start_y);
-
-	int collectibles_visited = 1;
-	int exit_visited = 1;
-
+	bfs(game->map, i, j);
 	i = 0;
 	j = 0;
-
-	while (i < y)
+	while (i < game->map_height)
 	{
-		while (j < y)
+		j = 0;
+		while (j < game->map_height)
 		{
-			if (game_map[i][j] == 'C' && visited[i][j] == 0)
+			if (game->map[j][i] == 'C' && visited[j][i] == 0)
 			{
 				collectibles_visited = 0;
 			}
-			if (game_map[i][j] == 'E' && visited[i][j] == 0)
+			if (game->map[i][j] == 'E' && visited[i][j] == 0)
 			{
 				exit_visited = 0;
 			}
@@ -131,12 +123,13 @@ int	start_bfs(char **game_map, size_t y)
 		}
 		++i;
 	}
-
-	printf("collectibles_visited %d\n", collectibles_visited);
-	printf("exit_visited %d\n", exit_visited);
+	printf("collectibles visited %d\n", collectibles_visited);
 	if (collectibles_visited && exit_visited)
-		printf("map is valid");
-
+	{
+		printf("map is valid\n");
+		return (1);
+	}
+	printf("map invalid\n");
 	return (0);
 }
 

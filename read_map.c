@@ -5,57 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 14:34:42 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/12 11:34:16 by omartela         ###   ########.fr       */
+/*   Created: 2025/06/05 14:34:42 by omartela          #+#    #+#             */
+/*   Updated: 2024/06/13 19:45:16 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
-#include "stdio.h"
-// error handling for the map
-// implement check that in the map there is no symbols which are not allowed.
-// implement check that player cant reach collectable or door
-// 
 
-void	extract_map_data(char *line, t_list **llist, int y)
+void	extract_map_data(t_game *game, t_list **llist)
 {
-	int		x;
+	size_t	x;
+	size_t	y;
 
-	x = 0;
-	while (line[x])
+	y = 0;
+	while (y < game->map_height)
 	{
-		if (line[x] == 'P')
+		x = 0;
+		while (x < game->map_width)
 		{
-			insert_image_to_window((*llist)->content, x * TILE_SIZE, y * TILE_SIZE);
+			if (game->map[y][x] == 'P')
+				insert_image_to_window((*llist)->content, x * TILE_SIZE, y * TILE_SIZE);
+			if (game->map[y][x] == 'C')
+				insert_image_to_window((*llist)->next->content, x * TILE_SIZE, y * TILE_SIZE);
+			if (game->map[y][x] == '1')
+				insert_image_to_window((*llist)->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
+			if (game->map[y][x] == 'E')
+				insert_image_to_window((*llist)->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
+			//if (game->map[y][x] == '0')
+				//insert_image_to_window((*llist)->next->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
+			++x;
 		}
-		else if (line[x] == 'C')
-		{
-			insert_image_to_window((*llist)->next->content, x * TILE_SIZE, y * TILE_SIZE);
-		}
-		else if (line[x] == '1')
-		{
-			insert_image_to_window((*llist)->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
-		}
-		else if (line[x] == 'E')
-		{
-			insert_image_to_window((*llist)->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
-		}
-		else if (line[x] == '0')
-		{
-			insert_image_to_window((*llist)->next->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
-		}
-		++x;
-	}
-}
-
-int	validate_map_char(char c)
-{
-	if (ft_strchr("PC1E0", c))
-	{
-		return (1);
-	}
-	else
-	{
-		return (0);
+		++y;
 	}
 }
 
@@ -83,7 +62,7 @@ void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 	return (new_ptr);
 }
 
-void	free_map(char **map, int i)
+void	free_map(char **map, size_t i)
 {
 	while (i > 0)
 	{
@@ -129,10 +108,11 @@ void	read_map(t_game *game)
 			return ;
 		}
 		map[ln] = line;
-		++ln;
+		if (line)
+			++ln;
 	}
 	/// index start from 0 so that is why (line numbers)ln - 1
-	game->map_height = ln - 1;
+	game->map_height = ln;
 	/// Every line has /0 character so thats why -1 so dont take that into account.
 	game->map_width = ft_strlen(map[0]) - 1;
 	game->map = map;

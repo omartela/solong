@@ -6,11 +6,10 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:05:25 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/07 15:47:46 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/13 19:32:06 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
-#include <stdio.h>
 int	check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i)
 {
 	unsigned int	x1;
@@ -191,15 +190,21 @@ void	set_image_position(t_img *img, int pos_x, int pos_y)
 	img->image->instances[1].y = pos_y;
 }
 
-int init_game(t_game game)
+int init_game(t_game *game)
 {
 	mlx_t		*mlx;
 	t_list		*llist;
 
 	llist = NULL;
-	read_map(&game);
+	game->players = 0;
+	game->exits = 0;
+	game->collectibles = 0;
+	read_map(game);
 	if (!validate_map(game))
+	{
+		free_map(game->map, game->map_height);
 		return (0);
+	}
 	mlx = mlx_init(480, 480, "Dwarf & Diamonds", true);
 	if (!mlx)
 		error();
@@ -211,7 +216,7 @@ int init_game(t_game game)
 	resize_image(llist->next->content, TILE_SIZE, TILE_SIZE);
 	resize_image(llist->next->next->content, TILE_SIZE, TILE_SIZE);
 	resize_image(llist->next->next->next->content, TILE_SIZE, TILE_SIZE);
-
+	extract_map_data(game, &llist);
 	mlx_key_hook(mlx, &ft_hook, llist);
 	mlx_loop(mlx);
     // Optional, terminate will clean up any leftover images (not textures!)
@@ -227,6 +232,6 @@ int	main(int argc, char *argv[])
 	if (argc == 2)
 	{
 		game.filename = argv[1];
-		init_game(game);
+		init_game(&game);
 	}
 }

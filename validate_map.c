@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 13:03:58 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/12 15:32:14 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:26:10 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -25,7 +25,7 @@ static int	validate_walls_sides(t_game *game)
 	h = 0;
 	while (h < game->map_height)
 	{
-		if (game->map[game->map_width - 1][h])
+		if (game->map[game->map_width - 1][h] != '1')
 			return (0);
 		++h;
 	}
@@ -53,17 +53,31 @@ static int	validate_walls_top_bot(t_game *game)
 	return (1);
 }
 
+static size_t	calc_map_row_len(t_game *game, size_t i)
+{
+	size_t len;
+
+	if (ft_strrchr(game->map[i], '\n'))
+	{
+		len = ft_strlen(game->map[i]) - 1;
+	}
+	else
+	{
+		len = ft_strlen(game->map[i]);
+	}
+	return (len);
+}
+
 static int	validate_rectangle(t_game *game)
 {
 	size_t	h;
-	size_t	w;
 	size_t	len;
 
 	h = 0;
-	len = ft_strlen(game->map[0]);
-	while (h < game->map_height)
+	len = calc_map_row_len(game, 0);
+	while (h < game->map_height - 1)
 	{
-		if (len != (ft_strlen(game->map[h])))
+		if (len != calc_map_row_len(game, h))
 			return (0);
 		++h;
 	}
@@ -80,7 +94,7 @@ int	validate_map(t_game *game)
 		return (0);
 	if (!validate_map_chars_and_ext(game))
 		return (0);
-	if (!start_bfs(game->map, game->map_height))
+	if (!start_bfs(game))
 		return (0);
 	return (1);
 }

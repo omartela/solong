@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/12 11:30:36 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:16:22 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,11 @@ void	set_image_position(t_img *img, int pos_x, int pos_y);
 void	insert_image_to_window(void *content, int x, int y);
 void	read_map(t_game *game);
 void	delete_img_node(void *content);
-int		start_bfs(char **map, size_t y);
+int		start_bfs(t_game *game);
+int		validate_map_chars_and_ext(t_game *game);
+int		validate_map(t_game *game);
+void	read_map(t_game *game);
+void	free_map(char **map, size_t i);
+void	extract_map_data(t_game *game, t_list **llist);
+
 #endif

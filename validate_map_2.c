@@ -6,11 +6,10 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:34:02 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/12 15:34:04 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/13 19:50:13 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
-
 static int	validate_file_ext(char *file)
 {
 	char	*ext;
@@ -19,7 +18,7 @@ static int	validate_file_ext(char *file)
 	ext = ft_strrchr(file, '.');
 	if (ext == NULL)
 		return (0);
-	if (!ft_strncmp(ext, ".ber", 4))
+	if (ft_strncmp(ext, ".ber", 4) != 0)
 		return (0);
 	return (1);
 }
@@ -32,6 +31,19 @@ static void	check_character(t_game *game, int c)
 		game->players += 1;
 	else if (c == 'C')
 		game->collectibles += 1;
+}
+
+static int	validate_map_char(char c)
+{
+	if (ft_strchr("PC1E0", c))
+	{
+		return (1);
+	}
+	else
+	{
+		return (0);
+	}
+	return (0);
 }
 
 static int	validate_map_chars(t_game *game)
@@ -59,23 +71,11 @@ static int	validate_map_chars(t_game *game)
 	return (1);
 }
 
-static int	validate_map_char(char c)
-{
-	if (ft_strchr("PC1E0", c))
-	{
-		return (1);
-	}
-	else
-	{
-		return (0);
-	}
-}
-
-
 int	validate_map_chars_and_ext(t_game *game)
 {
 	if (!validate_file_ext(game->filename))
 		return (0);
 	if (!validate_map_chars(game))
 		return (0);
+	return (1);
 }
