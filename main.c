@@ -23,15 +23,21 @@ void	init_game_images(t_game *game, t_list **llist)
 	resize_image((*llist)->next->next->next->content, TILE_SIZE, TILE_SIZE);
 }
 
+void	init_game_variables(t_game *game)
+{
+	game->players = 0;
+	game->exits = 0;
+	game->collectibles = 0;
+	game->move_count = 0;
+}
+
 int	init_game(t_game *game)
 {
 	mlx_t		*mlx;
 	t_list		*llist;
 
 	llist = NULL;
-	game->players = 0;
-	game->exits = 0;
-	game->collectibles = 0;
+	init_game_variables(game);
 	read_map(game);
 	if (!validate_map(game))
 	{
