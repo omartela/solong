@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-void	load_images_to_struct(t_list **llist, char *str, mlx_t *mlx)
+void	load_image_to_struct(t_list **llist, char *str, mlx_t *mlx)
 {
 	t_img	*img_s;
 	t_list	*new;

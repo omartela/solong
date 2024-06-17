@@ -28,7 +28,7 @@ typedef struct s_bfs
 	int	front;
 	int	back;
 	int	q[100][2];
-	int	visited[1000][1000];
+	int	visited[100][100];
 	int	directions[4][2];
 }	t_bfs;
 
@@ -57,7 +57,7 @@ typedef struct s_game
 void	load_texture(char *str, t_img *i_s);
 void	load_image(char *str, mlx_t *mlx, t_img *i_s);
 void	error(void);
-void	load_images_to_struct(t_list **llist, char *str, mlx_t *mlx);
+void	load_image_to_struct(t_list **llist, char *str, mlx_t *mlx);
 void	set_image_position(t_img *img, int pos_x, int pos_y);
 void	insert_image_to_window(void *content, int x, int y);
 void	read_map(t_game *game);
@@ -68,5 +68,11 @@ int		validate_map(t_game *game);
 void	read_map(t_game *game);
 void	free_map(char **map, size_t i);
 void	extract_map_data(t_game *game, t_list **llist);
+int		check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i, int movement_x, int movement_y);
+int		check_obstacle(void *obc, t_img *p, int movement, char direction);
+int		check_collectable(void *content, t_img *p);
+int		check_exit(void *content, t_img *p);
+void	ft_hook_movement(mlx_key_data_t keydata, void *param);
+void	resize_image(void *content, unsigned int x, unsigned int y);
 
 #endif
