@@ -11,6 +11,18 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
+void	init_game_images(t_game *game, t_list **llist)
+{
+	load_image_to_struct(llist, "DwarfSprite1.png", game->mlx);
+	load_image_to_struct(llist, "amethyst.png", game->mlx);
+	load_image_to_struct(llist, "Rock Pile 1 - AZURE - small.PNG", game->mlx);
+	load_image_to_struct(llist, "Door02.png", game->mlx);
+	resize_image((*llist)->content, TILE_SIZE, TILE_SIZE);
+	resize_image((*llist)->next->content, TILE_SIZE, TILE_SIZE);
+	resize_image((*llist)->next->next->content, TILE_SIZE, TILE_SIZE);
+	resize_image((*llist)->next->next->next->content, TILE_SIZE, TILE_SIZE);
+}
+
 int	init_game(t_game *game)
 {
 	mlx_t		*mlx;
@@ -29,14 +41,8 @@ int	init_game(t_game *game)
 	mlx = mlx_init(480, 480, "Dwarf & Diamonds", true);
 	if (!mlx)
 		error();
-	load_image_to_struct(&llist, "DwarfSprite1.png", mlx);
-	load_image_to_struct(&llist, "amethyst.png", mlx);
-	load_image_to_struct(&llist, "Rock Pile 1 - AZURE - small.PNG", mlx);
-	load_image_to_struct(&llist, "Door02.png", mlx);
-	resize_image(llist->content, TILE_SIZE, TILE_SIZE);
-	resize_image(llist->next->content, TILE_SIZE, TILE_SIZE);
-	resize_image(llist->next->next->content, TILE_SIZE, TILE_SIZE);
-	resize_image(llist->next->next->next->content, TILE_SIZE, TILE_SIZE);
+	game->mlx = mlx;
+	init_game_images(game, &llist);
 	extract_map_data(game, &llist);
 	mlx_key_hook(mlx, &ft_hook_movement, llist);
 	mlx_loop(mlx);
