@@ -15,6 +15,10 @@ void	init_game_images(t_game *game, t_list **llist)
 {
 	t_img	*img;
 
+	mlx_put_string(game->mlx, "Move count:", 0, 0);
+	mlx_put_string(game->mlx, "Score:", 17 * 10, 0);
+	game->move_count_image = mlx_put_string(game->mlx, "0", 12 * 10, 0);
+	game->score_image = mlx_put_string(game->mlx, "0", 24 * 10, 0);
 	load_image_to_struct(llist, "DwarfSprite1.png", game->mlx);
 	img = (t_img *)(*llist)->content;
 	img->right_images[0] = "dwalk1.png";
@@ -72,7 +76,7 @@ int	init_game(t_game *game)
 	}
 	mlx = mlx_init(480, 480, "Dwarf & Diamonds", true);
 	if (!mlx)
-		error();
+		error("Failed to initialize mlx");
 	game->mlx = mlx;
 	init_game_images(game, &llist);
 	extract_map_data(game, &llist);

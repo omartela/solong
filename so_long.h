@@ -14,6 +14,11 @@
 # define SO_LONG_H
 
 # define TILE_SIZE 32
+# define WALLS_SIDES "Invalid map, side walls fail\n"
+# define WALLS_TOP "Invalid map, top walls fail\n"
+# define WALLS_TOP_BOT "Invalid map, bottom or top walls fail\n"
+# define WALLS_RECTANGLE "Invalid map, map is not rectangle\n"
+# define MAP_CHARS "Invalid map, map has invalid character \n"
 
 # include <stdio.h>
 # include <unistd.h>
@@ -51,6 +56,9 @@ typedef struct s_img
 typedef struct s_game
 {
 	int			move_count;
+	mlx_image_t *move_count_image;
+	int			score;
+	mlx_image_t *score_image;
 	mlx_t		*mlx;
 	char		**map;
 	char		*filename;
@@ -66,7 +74,7 @@ typedef struct s_game
 
 void	load_texture(char *str, t_img *i_s);
 void	load_image(char *str, mlx_t *mlx, t_img *i_s);
-void	error(void);
+void	error(char *s1);
 void	load_image_to_struct(t_list **llist, char *str, mlx_t *mlx);
 void	set_image_position(t_img *img, int pos_x, int pos_y);
 void	insert_image_to_window(void *content, int x, int y);

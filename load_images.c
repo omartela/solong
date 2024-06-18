@@ -32,8 +32,10 @@ void	delete_img_node(void *content)
 	free(img_s);
 }
 
-void	error(void)
+void	error(char *s1)
 {
+	ft_putstr_fd("Error\n", 1);
+	ft_putstr_fd(s1, 1);
 	puts(mlx_strerror(mlx_errno));
 	exit(EXIT_FAILURE);
 }
@@ -44,7 +46,7 @@ void	load_texture(char *str, t_img *i_s)
 
 	texture = mlx_load_png(str);
 	if (!texture)
-		error();
+		error("Load texture failed");
 	i_s->texture = texture;
 }
 
@@ -55,7 +57,7 @@ void	load_image(char *str, mlx_t *mlx, t_img *i_s)
 	load_texture(str, i_s);
 	img = mlx_texture_to_image(mlx, i_s->texture);
 	if (!img)
-		error();
+		error("Load image failed");
 	i_s->image = img;
 	mlx_delete_texture(i_s->texture);
 }

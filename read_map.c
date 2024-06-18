@@ -23,13 +23,13 @@ void	extract_map_data(t_game *game, t_list **llist)
 		while (x < game->map_width)
 		{
 			if (game->map[y][x] == 'P')
-				insert_image_to_window((*llist)->content, x * TILE_SIZE, y * TILE_SIZE);
+				insert_image_to_window((*llist)->content, x * TILE_SIZE, y * TILE_SIZE + TILE_SIZE);
 			if (game->map[y][x] == 'C')
-				insert_image_to_window((*llist)->next->content, x * TILE_SIZE, y * TILE_SIZE);
+				insert_image_to_window((*llist)->next->content, x * TILE_SIZE, y * TILE_SIZE + TILE_SIZE);
 			if (game->map[y][x] == '1')
-				insert_image_to_window((*llist)->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
+				insert_image_to_window((*llist)->next->next->content, x * TILE_SIZE, y * TILE_SIZE + TILE_SIZE);
 			if (game->map[y][x] == 'E')
-				insert_image_to_window((*llist)->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
+				insert_image_to_window((*llist)->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE + TILE_SIZE);
 			//if (game->map[y][x] == '0')
 				//insert_image_to_window((*llist)->next->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
 			++x;

@@ -25,7 +25,7 @@ static int	validate_walls_sides(t_game *game)
 	h = 0;
 	while (h < game->map_height)
 	{
-		if (game->map[h][game->map_width] != '1')
+		if (game->map[h][game->map_width - 1] != '1')
 			return (0);
 		++h;
 	}
@@ -57,9 +57,11 @@ static size_t	calc_map_row_len(t_game *game, size_t i)
 {
 	size_t len;
 
+	len = 0;
 	if (ft_strrchr(game->map[i], '\n'))
 	{
-		len = ft_strlen(game->map[i]) - 1;
+		while(game->map[i][len] != '\n')
+			++len;
 	}
 	else
 	{
@@ -87,13 +89,13 @@ static int	validate_rectangle(t_game *game)
 int	validate_map(t_game *game)
 {
 	if (!validate_rectangle(game))
-		return (0);
+		error(WALLS_RECTANGLE);
 	if (!validate_walls_sides(game))
-		return (0);
+		error(WALLS_SIDES);
 	if (!validate_walls_top_bot(game))
-		return (0);
+		error(WALLS_TOP_BOT);
 	if (!validate_map_chars_and_ext(game))
-		return (0);
+		error(MAP_CHARS);
 	if (!start_bfs(game))
 		return (0);
 	return (1);

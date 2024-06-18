@@ -71,13 +71,21 @@ void	move_up(t_game *game)
 	if (!check_obstacle(llist->next->next->content, player, -TILE_SIZE, 'y'))
 	{
 		player->image->instances[0].y -= TILE_SIZE;
-		check_collectable(llist->next->content, player);
+		if (check_collectable(llist->next->content, player))
+			game->score +=1;
 		check_exit(llist->next->next->next->content, player);
 		game->move_count += 1;
-		ft_putstr_fd("Move count:", 1);
-		ft_putnbr_fd(game->move_count, 1);
-		ft_putchar_fd('\n', 1);
 	}
+}
+
+void	print_moves_and_score(t_game *game)
+{
+	if (game->move_count_image)
+			mlx_delete_image(game->mlx, game->move_count_image);
+	game->move_count_image = mlx_put_string(game->mlx, ft_itoa(game->move_count), 12 * 10, 0);
+	if (game->score_image)
+		mlx_delete_image(game->mlx, game->score_image);
+	game->score_image = mlx_put_string(game->mlx, ft_itoa(game->score), 25 * 10, 0);
 }
 
 void	move_down(t_game *game)
@@ -90,12 +98,10 @@ void	move_down(t_game *game)
 	if (!check_obstacle(llist->next->next->content, player, TILE_SIZE, 'y'))
 	{
 		player->image->instances[0].y += TILE_SIZE;
-		check_collectable(llist->next->content, player);
+		if (check_collectable(llist->next->content, player))
+			game->score +=1;
 		check_exit(llist->next->next->next->content, player);
 		game->move_count += 1;
-		ft_putstr_fd("Move count:", 1);
-		ft_putnbr_fd(game->move_count, 1);
-		ft_putchar_fd('\n', 1);
 	}
 }
 
@@ -109,12 +115,10 @@ void	move_left(t_game *game)
 	if (!check_obstacle(llist->next->next->content, player, -TILE_SIZE, 'x'))
 	{
 		player->image->instances[0].x -= TILE_SIZE;
-		check_collectable(llist->next->content, player);
+		if (check_collectable(llist->next->content, player))
+			game->score += 1;
 		check_exit(llist->next->next->next->content, player);
 		game->move_count += 1;
-		ft_putstr_fd("Move count:", 1);
-		ft_putnbr_fd(game->move_count, 1);
-		ft_putchar_fd('\n', 1);
 		animation(game, 'l');
 	}
 }
@@ -129,12 +133,10 @@ void	move_right(t_game *game)
 	if (!check_obstacle(llist->next->next->content, player, TILE_SIZE, 'x'))
 	{
 		player->image->instances[0].x += TILE_SIZE;
-		check_collectable(llist->next->content, player);
+		if (check_collectable(llist->next->content, player))
+			game->score += 1;
 		check_exit(llist->next->next->next->content, player);
-		game->move_count += 1;
-		ft_putstr_fd("Move count:", 1);
-		ft_putnbr_fd(game->move_count, 1);
-		ft_putchar_fd('\n', 1);
+		game->move_count += 1;	
 		animation(game, 'r');
 	}
 }
@@ -160,4 +162,5 @@ void	ft_hook_movement(mlx_key_data_t keydata, void *param)
 		move_left(game);
 	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
 		move_right(game);
+	print_moves_and_score(game);
 }
