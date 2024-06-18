@@ -17,24 +17,48 @@ void	animation(t_game *game, char direction)
 	mlx_image_t	*mlx_image;
 
 	img = (t_img *)game->llist->content;
+	mlx_image = img->image;
 	if (direction == 'r')
 	{
-		if (img->ri == 2)
+		if (img->previous_dir == 'l')
 		{
-			mlx_image = img->image;
-			load_image(img->idle_images[img->ii], img->mlx, img);
+			load_image(img->r_idle_images[0], img->mlx, img);
+			img->ri = 0;
+		}
+		if (img->ri == 7)
+		{
+			load_image(img->r_idle_images[0], img->mlx, img);
 			img->ri = 0;
 		}
 		else
 		{
-			mlx_image = img->image;
 			load_image(img->right_images[img->ri], img->mlx, img);
 			img->ri += 1;
 		}
-		resize_image(game->llist->content, TILE_SIZE, TILE_SIZE);
-		insert_image_to_window(game->llist->content, mlx_image->instances[0].x, mlx_image->instances[0].y);
-		mlx_delete_image(img->mlx, mlx_image);
+		img->previous_dir = 'r';
 	}
+	if (direction == 'l')
+	{
+		if (img->previous_dir == 'r')
+		{
+			load_image(img->l_idle_images[0], img->mlx, img);
+			img->li = 0;
+		}
+		if (img->li == 7)
+		{
+			load_image(img->l_idle_images[0], img->mlx, img);
+			img->li = 0;
+		}
+		else
+		{
+			load_image(img->left_images[img->li], img->mlx, img);
+			img->li += 1;
+		}
+		img->previous_dir = 'l';
+	}
+	resize_image(game->llist->content, TILE_SIZE, TILE_SIZE);
+	insert_image_to_window(game->llist->content, mlx_image->instances[0].x, mlx_image->instances[0].y);
+	mlx_delete_image(img->mlx, mlx_image);
 }
 
 void	move_up(t_game *game)
@@ -91,6 +115,7 @@ void	move_left(t_game *game)
 		ft_putstr_fd("Move count:", 1);
 		ft_putnbr_fd(game->move_count, 1);
 		ft_putchar_fd('\n', 1);
+		animation(game, 'l');
 	}
 }
 

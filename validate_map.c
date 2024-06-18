@@ -18,14 +18,14 @@ static int	validate_walls_sides(t_game *game)
 	h = 0;
 	while (h < game->map_height)
 	{
-		if (game->map[0][h] != '1')
+		if (game->map[h][0] != '1')
 			return (0);
 		++h;
 	}
 	h = 0;
 	while (h < game->map_height)
 	{
-		if (game->map[game->map_width - 1][h] != '1')
+		if (game->map[h][game->map_width] != '1')
 			return (0);
 		++h;
 	}

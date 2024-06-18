@@ -37,10 +37,15 @@ typedef struct s_img
 	mlx_t			*mlx;
 	mlx_image_t		*image;
 	mlx_texture_t	*texture;
-	char			*idle_images[1];
-	char			*right_images[3];
+	char			*r_idle_images[1];
+	char			*l_idle_images[1];
+	char			*right_images[8];
+	char			*left_images[8];
+	char			previous_dir;
 	int				ri;
-	int				ii;
+	int				li;
+	int				i_ri;
+	int				i_li;
 }	t_img;
 
 typedef struct s_game
