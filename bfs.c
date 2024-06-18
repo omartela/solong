@@ -59,7 +59,7 @@ void	check_directions(t_bfs *bfs, t_game *game, int current_x, int current_y)
 	{
 		new_x = current_x + bfs->directions[i][0];
 		new_y = current_y + bfs->directions[i][1];
-		if (new_x >= 0 && new_x < game->map_width && new_y >= 0 && new_y < game->map_height && game->map[new_x][new_y] != '1' && bfs->visited[new_x][new_y] == 0)
+		if (new_x < game->map_width && new_y < game->map_height && game->map[new_x][new_y] != '1' && bfs->visited[new_x][new_y] == 0)
 		{
 			bfs->visited[new_x][new_y] = 1;
 			push(bfs, new_x, new_y);
@@ -142,12 +142,8 @@ void	find_player_pos(t_game *game)
 
 int	start_bfs(t_game *game) 
 {
-	size_t	i;
-	size_t	j;
 	t_bfs	bfs_s;
 
-	i = 0;
-	j = 0;
 	init_bfs(&bfs_s);
 	find_player_pos(game);
 	bfs(game, &bfs_s);
