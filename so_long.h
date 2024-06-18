@@ -37,6 +37,10 @@ typedef struct s_img
 	mlx_t			*mlx;
 	mlx_image_t		*image;
 	mlx_texture_t	*texture;
+	char			*idle_images[1];
+	char			*right_images[3];
+	int				ri;
+	int				ii;
 }	t_img;
 
 typedef struct s_game
@@ -45,6 +49,7 @@ typedef struct s_game
 	mlx_t		*mlx;
 	char		**map;
 	char		*filename;
+	t_list		*llist;
 	size_t		map_width;
 	size_t		map_height;
 	size_t		collectibles;

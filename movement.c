@@ -11,43 +11,106 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-void	move_up(t_list **llist, t_img *player)
+void	animation(t_game *game, char direction)
 {
-	if (!check_obstacle((*llist)->next->next->content, player, -TILE_SIZE, 'y'))
+	t_img		*img;
+	mlx_image_t	*mlx_image;
+
+	img = (t_img *)game->llist->content;
+	if (direction == 'r')
+	{
+		if (img->ri == 2)
+		{
+			mlx_image = img->image;
+			load_image(img->idle_images[img->ii], img->mlx, img);
+			img->ri = 0;
+		}
+		else
+		{
+			mlx_image = img->image;
+			load_image(img->right_images[img->ri], img->mlx, img);
+			img->ri += 1;
+		}
+		resize_image(game->llist->content, TILE_SIZE, TILE_SIZE);
+		insert_image_to_window(game->llist->content, mlx_image->instances[0].x, mlx_image->instances[0].y);
+		mlx_delete_image(img->mlx, mlx_image);
+	}
+}
+
+void	move_up(t_game *game)
+{
+	t_list	*llist;
+	t_img	*player;
+
+	llist = game->llist;
+	player = llist->content;
+	if (!check_obstacle(llist->next->next->content, player, -TILE_SIZE, 'y'))
 	{
 		player->image->instances[0].y -= TILE_SIZE;
-		check_collectable((*llist)->next->content, player);
-		check_exit((*llist)->next->next->next->content, player);
+		check_collectable(llist->next->content, player);
+		check_exit(llist->next->next->next->content, player);
+		game->move_count += 1;
+		ft_putstr_fd("Move count:", 1);
+		ft_putnbr_fd(game->move_count, 1);
+		ft_putchar_fd('\n', 1);
 	}
 }
 
-void	move_down(t_list **llist, t_img *player)
+void	move_down(t_game *game)
 {
-	if (!check_obstacle((*llist)->next->next->content, player, TILE_SIZE, 'y'))
+	t_list	*llist;
+	t_img	*player;
+
+	llist = game->llist;
+	player = llist->content;
+	if (!check_obstacle(llist->next->next->content, player, TILE_SIZE, 'y'))
 	{
 		player->image->instances[0].y += TILE_SIZE;
-		check_collectable((*llist)->next->content, player);
-		check_exit((*llist)->next->next->next->content, player);
+		check_collectable(llist->next->content, player);
+		check_exit(llist->next->next->next->content, player);
+		game->move_count += 1;
+		ft_putstr_fd("Move count:", 1);
+		ft_putnbr_fd(game->move_count, 1);
+		ft_putchar_fd('\n', 1);
 	}
 }
 
-void	move_left(t_list **llist, t_img *player)
+void	move_left(t_game *game)
 {
-	if (!check_obstacle((*llist)->next->next->content, player, -TILE_SIZE, 'x'))
+	t_list	*llist;
+	t_img	*player;
+
+	llist = game->llist;
+	player = llist->content;
+	if (!check_obstacle(llist->next->next->content, player, -TILE_SIZE, 'x'))
 	{
 		player->image->instances[0].x -= TILE_SIZE;
-		check_collectable((*llist)->next->content, player);
-		check_exit((*llist)->next->next->next->content, player);
+		check_collectable(llist->next->content, player);
+		check_exit(llist->next->next->next->content, player);
+		game->move_count += 1;
+		ft_putstr_fd("Move count:", 1);
+		ft_putnbr_fd(game->move_count, 1);
+		ft_putchar_fd('\n', 1);
 	}
 }
 
-void	move_right(t_list **llist, t_img *player)
+void	move_right(t_game *game)
 {
-	if (!check_obstacle((*llist)->next->next->content, player, TILE_SIZE, 'x'))
+	t_list	*llist;
+	t_img	*player;
+
+	llist = game->llist;
+	player = llist->content;
+	if (!check_obstacle(llist->next->next->content, player, TILE_SIZE, 'x'))
 	{
 		player->image->instances[0].x += TILE_SIZE;
-		check_collectable((*llist)->next->content, player);
-		check_exit((*llist)->next->next->next->content, player);
+		check_collectable(llist->next->content, player);
+		check_exit(llist->next->next->next->content, player);
+		game->move_count += 1;
+		ft_putstr_fd("Move count:", 1);
+		ft_putnbr_fd(game->move_count, 1);
+		ft_putchar_fd('\n', 1);
+		animation(game, 'r');
 	}
 }
 
@@ -55,19 +118,21 @@ void	ft_hook_movement(mlx_key_data_t keydata, void *param)
 {
 	mlx_t	*mlx;
 	t_img	*params;
+	t_game	*game;
 	t_list	*llist;
 
-	llist = (t_list *)param;
+	game = (t_game *)param;
+	llist = game->llist;
 	params = (t_img *)llist->content;
 	mlx = params->mlx;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(mlx);
 	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
-		move_up(&llist, params);
+		move_up(game);
 	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
-		move_down(&llist, params);
+		move_down(game);
 	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
-		move_left(&llist, params);
+		move_left(game);
 	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
-		move_right(&llist, params);
+		move_right(game);
 }

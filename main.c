@@ -13,7 +13,16 @@
 
 void	init_game_images(t_game *game, t_list **llist)
 {
+	t_img	*img;
+
 	load_image_to_struct(llist, "DwarfSprite1.png", game->mlx);
+	img = (t_img *)(*llist)->content;
+	img->right_images[0] = "right1.png";
+	img->right_images[1] = "right2.png";
+	img->right_images[2] = "right3.png";
+	img->idle_images[0] = "DwarfSprite1.png";
+	img->ri = 0;
+	img->ii = 0;
 	load_image_to_struct(llist, "amethyst.png", game->mlx);
 	load_image_to_struct(llist, "Rock Pile 1 - AZURE - small.PNG", game->mlx);
 	load_image_to_struct(llist, "Door02.png", game->mlx);
@@ -50,7 +59,8 @@ int	init_game(t_game *game)
 	game->mlx = mlx;
 	init_game_images(game, &llist);
 	extract_map_data(game, &llist);
-	mlx_key_hook(mlx, &ft_hook_movement, llist);
+	game->llist = llist;
+	mlx_key_hook(mlx, &ft_hook_movement, game);
 	mlx_loop(mlx);
     // Optional, terminate will clean up any leftover images (not textures!)
 	ft_lstclear(&llist, &delete_img_node);
