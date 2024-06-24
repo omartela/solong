@@ -11,12 +11,25 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-void	animation(t_game *game, char direction)
-{
-	t_img		*img;
-	mlx_image_t	*mlx_image;
+unsigned int	seed = 1;
 
-	img = (t_img *)game->llist->content;
+unsigned int	lcg()
+{
+	seed = (LCG_A * seed + LCG_C) % LCG_M;
+	return (seed);
+}
+
+int	generate_random_number(int min, int max)
+{
+	return (min + (lcg() % (max - min + 1)));
+}
+
+void	animation(t_game *game, char direction, void *content)
+{
+	mlx_image_t	*mlx_image;
+	t_img		*img;
+
+	img = (t_img *)content;
 	mlx_image = img->image;
 	if (direction == 'r')
 	{
@@ -25,7 +38,7 @@ void	animation(t_game *game, char direction)
 			load_image(img->r_idle_images[0], img->mlx, img);
 			img->ri = 0;
 		}
-		if (img->ri == 7)
+		if (img->ri == img->last_ri_index)
 		{
 			load_image(img->r_idle_images[0], img->mlx, img);
 			img->ri = 0;
@@ -44,7 +57,7 @@ void	animation(t_game *game, char direction)
 			load_image(img->l_idle_images[0], img->mlx, img);
 			img->li = 0;
 		}
-		if (img->li == 7)
+		if (img->li == img->last_li_index)
 		{
 			load_image(img->l_idle_images[0], img->mlx, img);
 			img->li = 0;
@@ -59,6 +72,57 @@ void	animation(t_game *game, char direction)
 	resize_image(game->llist->content, TILE_SIZE, TILE_SIZE);
 	insert_image_to_window(game->llist->content, mlx_image->instances[0].x, mlx_image->instances[0].y);
 	mlx_delete_image(img->mlx, mlx_image);
+}
+
+void	move_enemy(void *content)
+{
+	int	direction;
+	t_img	*enemy;
+	t_game	*game;
+
+	game = (t_game *)content;
+	enemy = game->llist->next->next->next->next->content;
+
+	while (1)
+	{
+		direction = generate_random_number(1, 4);
+		if (direction == 1)
+		{
+			if (!check_obstacle(game->llist->next->next->content, enemy, -TILE_SIZE, 'y' ))
+			{
+				enemy->image->instances[0].y -= TILE_SIZE;
+				break;
+			}
+		}
+		else if (direction == 2)
+		{
+			if (!check_obstacle(game->llist->next->next->content, enemy, TILE_SIZE, 'y' ))
+			{
+				enemy->image->instances[0].y += TILE_SIZE;
+				break;
+			}
+		}
+		else if (direction == 3)
+		{
+			if (!check_obstacle(game->llist->next->next->content, enemy, -TILE_SIZE, 'x' ))
+			{
+				enemy->image->instances[0].x -= TILE_SIZE; 
+				animation(game, 'l', game->llist->next->next->next->next->content);
+				enemy->previous_dir = 'l';
+				break;
+			}
+		}
+		else if (direction == 4)
+		{
+			if (!check_obstacle(game->llist->next->next->content, enemy, TILE_SIZE, 'x' ))
+			{
+				enemy->image->instances[0].x += TILE_SIZE;
+				animation(game, 'r', game->llist->next->next->next->next->content);
+				enemy->previous_dir = 'r';
+				break;
+			}
+		}
+	}
 }
 
 void	move_up(t_game *game)
@@ -119,7 +183,7 @@ void	move_left(t_game *game)
 			game->score += 1;
 		check_exit(llist->next->next->next->content, player);
 		game->move_count += 1;
-		animation(game, 'l');
+		animation(game, 'l', game->llist->content);
 	}
 }
 
@@ -137,7 +201,7 @@ void	move_right(t_game *game)
 			game->score += 1;
 		check_exit(llist->next->next->next->content, player);
 		game->move_count += 1;	
-		animation(game, 'r');
+		animation(game, 'r', game->llist->content);
 	}
 }
 

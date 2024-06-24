@@ -19,6 +19,9 @@
 # define WALLS_TOP_BOT "Invalid map, bottom or top walls fail\n"
 # define WALLS_RECTANGLE "Invalid map, map is not rectangle\n"
 # define MAP_CHARS "Invalid map, map has invalid character \n"
+# define LCG_A 1103515245
+# define LCG_C 12345
+# define LCG_M 2147483648
 
 # include <stdio.h>
 # include <unistd.h>
@@ -47,6 +50,8 @@ typedef struct s_img
 	char			*right_images[8];
 	char			*left_images[8];
 	char			previous_dir;
+	int			last_ri_index;
+	int			last_li_index;
 	int				ri;
 	int				li;
 	int				i_ri;
@@ -68,8 +73,11 @@ typedef struct s_game
 	size_t		collectibles;
 	size_t		players;
 	size_t		exits;
+	size_t		enemies;
 	size_t		player_x;
 	size_t		player_y;
+	size_t		enemy_x;
+	size_t		enemy_y;
 }	t_game;
 
 void	load_texture(char *str, t_img *i_s);
@@ -78,12 +86,11 @@ void	error(char *s1);
 void	load_image_to_struct(t_list **llist, char *str, mlx_t *mlx);
 void	set_image_position(t_img *img, int pos_x, int pos_y);
 void	insert_image_to_window(void *content, int x, int y);
-void	read_map(t_game *game);
+int	read_map(t_game *game);
 void	delete_img_node(void *content);
 int		start_bfs(t_game *game);
 int		validate_map_chars_and_ext(t_game *game);
 int		validate_map(t_game *game);
-void	read_map(t_game *game);
 void	free_map(char **map, size_t i);
 void	extract_map_data(t_game *game, t_list **llist);
 int		check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i, int movement_x, int movement_y);
@@ -91,6 +98,7 @@ int		check_obstacle(void *obc, t_img *p, int movement, char direction);
 int		check_collectable(void *content, t_img *p);
 int		check_exit(void *content, t_img *p);
 void	ft_hook_movement(mlx_key_data_t keydata, void *param);
+void	move_enemy(void *content);
 void	resize_image(void *content, unsigned int x, unsigned int y);
 
 #endif

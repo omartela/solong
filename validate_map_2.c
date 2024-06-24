@@ -31,11 +31,13 @@ static void	check_character(t_game *game, int c)
 		game->players += 1;
 	else if (c == 'C')
 		game->collectibles += 1;
+	else if (c == '!')
+		game->enemies += 1;
 }
 
 static int	validate_map_char(char c)
 {
-	if (ft_strchr("PC1E0", c))
+	if (ft_strchr("PC1E0!", c))
 	{
 		return (1);
 	}

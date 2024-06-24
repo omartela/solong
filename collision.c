@@ -22,11 +22,11 @@ int	check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i, int movement_x
 	x2 = (unsigned int)p->instances[0].x + movement_x;
 	y1 = (unsigned int)obstacle->instances[i].y;
 	y2 = (unsigned int)p->instances[0].y + movement_y;
+	if (obstacle->instances[i].enabled == false)
+		return (0);
 	if (x1 < x2 + p->width && x1 + obstacle->width > x2 && y1 < y2 + p->height &&
 		y1 + obstacle->height > y2)
-	{
 		return (1);
-	}
 	return (0);
 }
 

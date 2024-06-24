@@ -30,8 +30,8 @@ void	extract_map_data(t_game *game, t_list **llist)
 				insert_image_to_window((*llist)->next->next->content, x * TILE_SIZE, y * TILE_SIZE + TILE_SIZE);
 			if (game->map[y][x] == 'E')
 				insert_image_to_window((*llist)->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE + TILE_SIZE);
-			//if (game->map[y][x] == '0')
-				//insert_image_to_window((*llist)->next->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
+			if (game->map[y][x] == '!')
+				insert_image_to_window((*llist)->next->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE + TILE_SIZE);
 			++x;
 		}
 		++y;
@@ -72,7 +72,7 @@ void	free_map(char **map, size_t i)
 	free(map);
 }
 
-void	read_map(t_game *game)
+int	read_map(t_game *game)
 {
 	int		fd;
 	char	**map;
@@ -81,18 +81,18 @@ void	read_map(t_game *game)
 
 	fd = open(game->filename, O_RDONLY);
 	if (fd == -1)
-		return ;
+		return (-1);
 	line = get_next_line(fd);
 	if (!line)
 	{
 		close(fd);
-		return ;
+		return (-1);
 	}
 	map = malloc(1 * sizeof(char *));
 	if (!map)
 	{
 		close(fd);
-		return ;
+		return (-1);
 	}
 	map[0] = line;
 	ln = 1;
@@ -105,7 +105,7 @@ void	read_map(t_game *game)
 			free_map(map, ln);
 			free(line);
 			close(fd);
-			return ;
+			return (-1);
 		}
 		map[ln] = line;
 		if (line)
@@ -117,4 +117,5 @@ void	read_map(t_game *game)
 	game->map_width = ft_strlen(map[0]) - 1;
 	game->map = map;
 	close(fd);
+	return (1);
 }
