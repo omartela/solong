@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-unsigned int	seed = 1;
+unsigned int	seed = 100;
 
 unsigned int	lcg()
 {
@@ -24,6 +24,19 @@ int	generate_random_number(int min, int max)
 	return (min + (lcg() % (max - min + 1)));
 }
 
+char	get_direction_from_num(int number)
+{
+	if (number == 1)
+		return ('u');
+	if (number == 2)
+		return ('d');
+	if (number == 3)
+		return ('l');
+	if (number == 4)
+		return ('r');
+	return ('r');
+}
+
 void	animation(char direction, void *content)
 {
 	mlx_image_t	*mlx_image;
@@ -33,7 +46,7 @@ void	animation(char direction, void *content)
 	mlx_image = img->image;
 	if (direction == 'r')
 	{
-		if (img->previous_dir == 'l')
+		if (img->previous_dir != direction)
 		{
 			load_image(img->r_idle_images[0], img->mlx, img);
 			img->ri = 0;
@@ -52,7 +65,7 @@ void	animation(char direction, void *content)
 	}
 	if (direction == 'l')
 	{
-		if (img->previous_dir == 'r')
+		if (img->previous_dir != direction)
 		{
 			load_image(img->l_idle_images[0], img->mlx, img);
 			img->li = 0;
@@ -76,16 +89,20 @@ void	animation(char direction, void *content)
 
 void	move_enemy(void *content)
 {
-	int	direction;
+	int	number;
 	t_img	*enemy;
 	t_game 	*game;
+	char	direction;
 
 	game = (t_game *)content;
 	enemy = game->llist->next->next->next->next->content;
 
-	direction = generate_random_number(1, 4);
-	printf("%d \n", direction);
-	if (direction == 1)
+	number = generate_random_number(1, 4);
+	direction = get_direction_from_num(number);
+	seed += 1; 
+	while (direction == enemy->previous_dir)
+		direction = get_direction_from_num(generate_random_number(1,4));
+	if (direction == 'u')
 	{
 		if (!check_obstacle(game->llist->next->next->content, enemy, -TILE_SIZE, 'y' ))
 		{
@@ -93,7 +110,7 @@ void	move_enemy(void *content)
 			enemy->previous_dir = 'u';
 		}
 	}
-	else if (direction == 2)
+	else if (direction == 'd')
 	{
 		if (!check_obstacle(game->llist->next->next->content, enemy, TILE_SIZE, 'y' ))
 		{
@@ -101,7 +118,7 @@ void	move_enemy(void *content)
 			enemy->previous_dir = 'd';
 		}
 	}
-	else if (direction == 3)
+	else if (direction == 'l')
 	{
 		if (!check_obstacle(game->llist->next->next->content, enemy, -TILE_SIZE, 'x' ))
 		{
@@ -110,7 +127,7 @@ void	move_enemy(void *content)
 			enemy->previous_dir = 'l';
 		}
 	}
-	else if (direction == 4)
+	else if (direction == 'r')
 	{
 		if (!check_obstacle(game->llist->next->next->content, enemy, TILE_SIZE, 'x' ))
 		{

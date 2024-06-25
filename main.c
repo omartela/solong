@@ -100,6 +100,7 @@ void	init_game_variables(t_game *game)
 	game->exits = 0;
 	game->collectibles = 0;
 	game->move_count = 0;
+	game->score = 0;
 }
 
 int	init_game(t_game *game)
