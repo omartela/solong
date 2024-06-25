@@ -40,6 +40,10 @@ void	init_enemy_images(t_game *game, t_list **llist)
 	img->r_idle_images[0] = "png/goblinright-1.png";
 	img->l_idle_images[0] = "png/goblinleft-1.png";
 	img->previous_dir = 'r';
+	img->ri = 0;
+	img->i_ri = 0;
+	img->i_li = 0;
+	img->li = 0;
 	resize_image((*llist)->next->next->next->next->content, TILE_SIZE, TILE_SIZE);
 }
 
@@ -120,7 +124,7 @@ int	init_game(t_game *game)
 	extract_map_data(game, &llist);
 	game->llist = llist;
 	mlx_key_hook(mlx, &ft_hook_movement, game);
-	mlx_loop_hook(mlx, &move_enemy, game);
+	//mlx_loop_hook(mlx, &move_enemy, game);
 	mlx_loop(mlx);
     // Optional, terminate will clean up any leftover images (not textures!)
 	ft_lstclear(&llist, &delete_img_node);

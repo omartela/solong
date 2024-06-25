@@ -24,7 +24,7 @@ int	generate_random_number(int min, int max)
 	return (min + (lcg() % (max - min + 1)));
 }
 
-void	animation(t_game *game, char direction, void *content)
+void	animation(char direction, void *content)
 {
 	mlx_image_t	*mlx_image;
 	t_img		*img;
@@ -38,7 +38,7 @@ void	animation(t_game *game, char direction, void *content)
 			load_image(img->r_idle_images[0], img->mlx, img);
 			img->ri = 0;
 		}
-		if (img->ri == img->last_ri_index)
+		else if (img->ri == img->last_ri_index)
 		{
 			load_image(img->r_idle_images[0], img->mlx, img);
 			img->ri = 0;
@@ -57,7 +57,7 @@ void	animation(t_game *game, char direction, void *content)
 			load_image(img->l_idle_images[0], img->mlx, img);
 			img->li = 0;
 		}
-		if (img->li == img->last_li_index)
+		else if (img->li == img->last_li_index)
 		{
 			load_image(img->l_idle_images[0], img->mlx, img);
 			img->li = 0;
@@ -69,8 +69,8 @@ void	animation(t_game *game, char direction, void *content)
 		}
 		img->previous_dir = 'l';
 	}
-	resize_image(game->llist->content, TILE_SIZE, TILE_SIZE);
-	insert_image_to_window(game->llist->content, mlx_image->instances[0].x, mlx_image->instances[0].y);
+	resize_image(content, TILE_SIZE, TILE_SIZE);
+	insert_image_to_window(content, mlx_image->instances[0].x, mlx_image->instances[0].y);
 	mlx_delete_image(img->mlx, mlx_image);
 }
 
@@ -78,49 +78,45 @@ void	move_enemy(void *content)
 {
 	int	direction;
 	t_img	*enemy;
-	t_game	*game;
+	t_game 	*game;
 
 	game = (t_game *)content;
 	enemy = game->llist->next->next->next->next->content;
 
-	while (1)
+	direction = generate_random_number(1, 4);
+	printf("%d \n", direction);
+	if (direction == 1)
 	{
-		direction = generate_random_number(1, 4);
-		if (direction == 1)
+		if (!check_obstacle(game->llist->next->next->content, enemy, -TILE_SIZE, 'y' ))
 		{
-			if (!check_obstacle(game->llist->next->next->content, enemy, -TILE_SIZE, 'y' ))
-			{
-				enemy->image->instances[0].y -= TILE_SIZE;
-				break;
-			}
+			enemy->image->instances[0].y -= TILE_SIZE;
+			enemy->previous_dir = 'u';
 		}
-		else if (direction == 2)
+	}
+	else if (direction == 2)
+	{
+		if (!check_obstacle(game->llist->next->next->content, enemy, TILE_SIZE, 'y' ))
 		{
-			if (!check_obstacle(game->llist->next->next->content, enemy, TILE_SIZE, 'y' ))
-			{
-				enemy->image->instances[0].y += TILE_SIZE;
-				break;
-			}
+			enemy->image->instances[0].y += TILE_SIZE;
+			enemy->previous_dir = 'd';
 		}
-		else if (direction == 3)
+	}
+	else if (direction == 3)
+	{
+		if (!check_obstacle(game->llist->next->next->content, enemy, -TILE_SIZE, 'x' ))
 		{
-			if (!check_obstacle(game->llist->next->next->content, enemy, -TILE_SIZE, 'x' ))
-			{
-				enemy->image->instances[0].x -= TILE_SIZE; 
-				animation(game, 'l', game->llist->next->next->next->next->content);
-				enemy->previous_dir = 'l';
-				break;
-			}
+			enemy->image->instances[0].x -= TILE_SIZE; 
+			animation('l', game->llist->next->next->next->next->content);
+			enemy->previous_dir = 'l';
 		}
-		else if (direction == 4)
+	}
+	else if (direction == 4)
+	{
+		if (!check_obstacle(game->llist->next->next->content, enemy, TILE_SIZE, 'x' ))
 		{
-			if (!check_obstacle(game->llist->next->next->content, enemy, TILE_SIZE, 'x' ))
-			{
-				enemy->image->instances[0].x += TILE_SIZE;
-				animation(game, 'r', game->llist->next->next->next->next->content);
-				enemy->previous_dir = 'r';
-				break;
-			}
+			enemy->image->instances[0].x += TILE_SIZE;
+			animation('r', game->llist->next->next->next->next->content);
+			enemy->previous_dir = 'r';
 		}
 	}
 }
@@ -183,7 +179,7 @@ void	move_left(t_game *game)
 			game->score += 1;
 		check_exit(llist->next->next->next->content, player);
 		game->move_count += 1;
-		animation(game, 'l', game->llist->content);
+		animation('l', game->llist->content);
 	}
 }
 
@@ -201,7 +197,7 @@ void	move_right(t_game *game)
 			game->score += 1;
 		check_exit(llist->next->next->next->content, player);
 		game->move_count += 1;	
-		animation(game, 'r', game->llist->content);
+		animation('r', game->llist->content);
 	}
 }
 
@@ -227,4 +223,6 @@ void	ft_hook_movement(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
 		move_right(game);
 	print_moves_and_score(game);
+	if (keydata.action == MLX_PRESS)
+		move_enemy(game);
 }

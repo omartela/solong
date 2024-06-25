@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME	:= solong
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code #commented for debugging -Ofast
+CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code #commented for debugging -Ofast
 LIBMLX	:= MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
@@ -29,7 +29,7 @@ libft:
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
 
 $(NAME): $(OBJS)
-	@$(CC) -g $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@$(CC)  $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJS)
