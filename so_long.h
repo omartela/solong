@@ -100,5 +100,6 @@ int		check_exit(void *content, t_img *p);
 void	ft_hook_movement(mlx_key_data_t keydata, void *param);
 void	move_enemy(void *content);
 void	resize_image(void *content, unsigned int x, unsigned int y);
+int		check_collision_to_player(void *content, t_img *p);
 
 #endif

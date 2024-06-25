@@ -30,6 +30,16 @@ int	check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i, int movement_x
 	return (0);
 }
 
+int	check_collision_to_player(void *content, t_img *p)
+{
+	t_img *obs;
+
+	obs = (t_img *)content;
+	if (check_collision(obs->image, p->image, 0, 0, 0))
+		return (1);
+	return (0);
+}
+
 int	check_obstacle(void *obc, t_img *p, int movement, char direction)
 {
 	t_img	*obstacle;

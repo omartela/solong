@@ -242,4 +242,9 @@ void	ft_hook_movement(mlx_key_data_t keydata, void *param)
 	print_moves_and_score(game);
 	if (keydata.action == MLX_PRESS)
 		move_enemy(game);
+	if (check_collision_to_player(llist->next->next->next->next->content, params))
+	{
+		params->image->instances[0].enabled = false;
+	}
+
 }
