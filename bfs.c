@@ -6,10 +6,9 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:02:33 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/17 11:44:39 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 12:38:01 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
 #include "so_long.h"
 
 void	init_bfs(t_bfs *bfs)
@@ -110,10 +109,8 @@ int	check_col_exits_player(t_game *game, t_bfs *bfs)
 	}
 	if (collectibles_visited && exit_visited)
 	{
-		printf("map is valid\n");
 		return (1);
 	}
-	printf("map invalid\n");
 	return (0);
 }
 

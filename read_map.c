@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:34:42 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/13 19:45:16 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 12:16:07 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -60,16 +60,6 @@ void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 		free(ptr);
 	}
 	return (new_ptr);
-}
-
-void	free_map(char **map, size_t i)
-{
-	while (i > 0)
-	{
-		i--;
-		free(map[i]);
-	}
-	free(map);
 }
 
 int	read_map(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:05:25 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/25 23:42:13 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 12:24:01 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -127,10 +127,7 @@ int	init_game(t_game *game)
 	mlx_key_hook(mlx, &ft_hook_movement, game);
 	//mlx_loop_hook(mlx, &move_enemy, game);
 	mlx_loop(mlx);
-    // Optional, terminate will clean up any leftover images (not textures!)
-	ft_lstclear(&llist, &delete_img_node);
-	mlx_terminate(mlx);
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 int	main(int argc, char *argv[])

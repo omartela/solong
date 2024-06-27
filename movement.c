@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:25:10 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/17 14:25:12 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 12:21:52 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -150,7 +150,6 @@ void	move_up(t_game *game)
 		player->image->instances[0].y -= TILE_SIZE;
 		if (check_collectable(llist->next->content, player))
 			game->score +=1;
-		check_exit(llist->next->next->next->content, player);
 		game->move_count += 1;
 	}
 }
@@ -158,7 +157,7 @@ void	move_up(t_game *game)
 void	print_moves_and_score(t_game *game)
 {
 	if (game->move_count_image)
-			mlx_delete_image(game->mlx, game->move_count_image);
+		mlx_delete_image(game->mlx, game->move_count_image);
 	game->move_count_image = mlx_put_string(game->mlx, ft_itoa(game->move_count), 12 * 10, 0);
 	if (game->score_image)
 		mlx_delete_image(game->mlx, game->score_image);
@@ -177,7 +176,6 @@ void	move_down(t_game *game)
 		player->image->instances[0].y += TILE_SIZE;
 		if (check_collectable(llist->next->content, player))
 			game->score +=1;
-		check_exit(llist->next->next->next->content, player);
 		game->move_count += 1;
 	}
 }
@@ -194,7 +192,6 @@ void	move_left(t_game *game)
 		player->image->instances[0].x -= TILE_SIZE;
 		if (check_collectable(llist->next->content, player))
 			game->score += 1;
-		check_exit(llist->next->next->next->content, player);
 		game->move_count += 1;
 		animation('l', game->llist->content);
 	}
@@ -211,8 +208,7 @@ void	move_right(t_game *game)
 	{
 		player->image->instances[0].x += TILE_SIZE;
 		if (check_collectable(llist->next->content, player))
-			game->score += 1;
-		check_exit(llist->next->next->next->content, player);
+			game->score += 1;	
 		game->move_count += 1;	
 		animation('r', game->llist->content);
 	}
@@ -246,5 +242,5 @@ void	ft_hook_movement(mlx_key_data_t keydata, void *param)
 	{
 		params->image->instances[0].enabled = false;
 	}
-
+	check_exit(game, params);
 }

@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/13 20:16:22 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 12:15:38 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_game
 	t_list		*llist;
 	size_t		map_width;
 	size_t		map_height;
-	size_t		collectibles;
+	int		collectibles;
 	size_t		players;
 	size_t		exits;
 	size_t		enemies;
@@ -88,18 +88,20 @@ void	set_image_position(t_img *img, int pos_x, int pos_y);
 void	insert_image_to_window(void *content, int x, int y);
 int	read_map(t_game *game);
 void	delete_img_node(void *content);
-int		start_bfs(t_game *game);
-int		validate_map_chars_and_ext(t_game *game);
-int		validate_map(t_game *game);
+int	start_bfs(t_game *game);
+int	validate_map_chars_and_ext(t_game *game);
+int	validate_map(t_game *game);
 void	free_map(char **map, size_t i);
 void	extract_map_data(t_game *game, t_list **llist);
-int		check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i, int movement_x, int movement_y);
-int		check_obstacle(void *obc, t_img *p, int movement, char direction);
-int		check_collectable(void *content, t_img *p);
-int		check_exit(void *content, t_img *p);
+int	check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i, int movement_x, int movement_y);
+int	check_obstacle(void *obc, t_img *p, int movement, char direction);
+int	check_collectable(void *content, t_img *p);
+void	check_exit(t_game *game, t_img *p);
 void	ft_hook_movement(mlx_key_data_t keydata, void *param);
 void	move_enemy(void *content);
 void	resize_image(void *content, unsigned int x, unsigned int y);
-int		check_collision_to_player(void *content, t_img *p);
+int	check_collision_to_player(void *content, t_img *p);
+int	exit_game(t_game *game);
+void	free_map(char **map, size_t i);
 
 #endif
