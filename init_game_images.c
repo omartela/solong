@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_game.c                                        :+:      :+:    :+:   */
+/*   init_game_images.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 23:03:40 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/25 23:18:42 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:58:10 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "so_long.h"
 
-void	init_image_indexes(t_img *img)
+void	init_image_indexes(t_img *img, int last_li_index, int last_ri_index)
 {
 	img->ri = 0;
 	img->i_ri = 0;
 	img->i_li = 0;
 	img->li = 0;
+	img->last_ri_index = last_ri_index;
+	img->last_li_index = last_li_index;
+	img->previous_dir = 'r';
 }
 
 void	init_enemy_images(t_game *game, t_list **llist)
@@ -24,8 +28,6 @@ void	init_enemy_images(t_game *game, t_list **llist)
 
 	load_image_to_struct(llist, "png/goblinright-1.png", game->mlx);
 	img = (t_img *)(*llist)->next->next->next->next->content;
-	img->last_ri_index = 8;
-	img->last_li_index = 8;
 	img->right_images[0] = "png/goblinright-1.png";
 	img->right_images[1] = "png/goblinright-2.png";
 	img->right_images[2] = "png/goblinright-3.png";
@@ -46,18 +48,15 @@ void	init_enemy_images(t_game *game, t_list **llist)
 	img->left_images[8] = "png/goblinleft-9.png";
 	img->r_idle_images[0] = "png/goblinright-1.png";
 	img->l_idle_images[0] = "png/goblinleft-1.png";
-	img->previous_dir = 'r';
-	init_image_indexes(img);
+	init_image_indexes(img, 8, 8);
 }
 
 void	init_player_images(t_game *game, t_list **llist)
 {
-	t_img *img;
+	t_img	*img;
 
 	load_image_to_struct(llist, "png/DwarfSprite1.png", game->mlx);
 	img = (t_img *)(*llist)->content;
-	img->last_ri_index = 7;
-	img->last_li_index = 7;
 	img->right_images[0] = "png/dwalk1.png";
 	img->right_images[1] = "png/dwalk2.png";
 	img->right_images[2] = "png/dwalk3.png";
@@ -76,31 +75,31 @@ void	init_player_images(t_game *game, t_list **llist)
 	img->left_images[7] = "png/dwalk8_left.png";
 	img->r_idle_images[0] = "png/DwarfSprite1.png";
 	img->l_idle_images[0] = "png/DwarfSprite_left.png";
-	img->previous_dir = 'r';
-	init_image_indexes(img);
+	init_image_indexes(img, 7, 7);
 }
 
 void	resize_images(t_list **llist)
 {
+	void	*content;
+
+	content = (*llist)->next->next->next->next->content;
 	resize_image((*llist)->content, TILE_SIZE, TILE_SIZE);
 	resize_image((*llist)->next->content, TILE_SIZE, TILE_SIZE);
 	resize_image((*llist)->next->next->content, TILE_SIZE, TILE_SIZE);
 	resize_image((*llist)->next->next->next->content, TILE_SIZE, TILE_SIZE);
-	resize_image((*llist)->next->next->next->next->content, TILE_SIZE, TILE_SIZE);
+	resize_image(content, TILE_SIZE, TILE_SIZE);
 }
 
 void	init_game_images(t_game *game, t_list **llist)
 {
-	t_img	*img;
-
 	mlx_put_string(game->mlx, "Move count:", 0, 0);
 	mlx_put_string(game->mlx, "Score:", 17 * 10, 0);
 	game->move_count_image = mlx_put_string(game->mlx, "0", 12 * 10, 0);
 	game->score_image = mlx_put_string(game->mlx, "0", 24 * 10, 0);
-	load_image_to_struct(llist, "png/amethyst.png", game->mlx);
-	load_image_to_struct(llist, "png/Rock Pile 1 - AZURE - small.PNG", game->mlx);
-	load_image_to_struct(llist, "png/Door02.png", game->mlx);
 	init_player_images(game, llist);
+	load_image_to_struct(llist, "png/amethyst.png", game->mlx);
+	load_image_to_struct(llist, "png/Rock Pile 1.PNG", game->mlx);
+	load_image_to_struct(llist, "png/Door02.png", game->mlx);
 	init_enemy_images(game, llist);
 	resize_images(llist);
 }

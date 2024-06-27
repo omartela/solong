@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:26:43 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/27 12:05:17 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:41:56 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -24,15 +24,15 @@ int	check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i, int movement_x
 	y2 = (unsigned int)p->instances[0].y + movement_y;
 	if (obstacle->instances[i].enabled == false)
 		return (0);
-	if (x1 < x2 + p->width && x1 + obstacle->width > x2 && y1 < y2 + p->height &&
-		y1 + obstacle->height > y2)
+	if (x1 < x2 + p->width && x1 + obstacle->width > x2 && y1 < y2 + p->height
+		&& y1 + obstacle->height > y2)
 		return (1);
 	return (0);
 }
 
 int	check_collision_to_player(void *content, t_img *p)
 {
-	t_img *obs;
+	t_img	*obs;
 
 	obs = (t_img *)content;
 	if (check_collision(obs->image, p->image, 0, 0, 0))

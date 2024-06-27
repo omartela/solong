@@ -6,9 +6,10 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 23:25:34 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/25 23:27:16 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 13:49:40 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "so_long.h"
 
 void	init_game_variables(t_game *game)
 {
@@ -27,7 +28,7 @@ int	init_game(t_game *game)
 	llist = NULL;
 	init_game_variables(game);
 	if (!read_map(game))
-		return (EXIT_SUCCESS);
+		return (0);
 	if (!validate_map(game))
 	{
 		free_map(game->map, game->map_height);
@@ -43,8 +44,6 @@ int	init_game(t_game *game)
 	mlx_key_hook(mlx, &ft_hook_movement, game);
 	//mlx_loop_hook(mlx, &move_enemy, game);
 	mlx_loop(mlx);
-    // Optional, terminate will clean up any leftover images (not textures!)
-	ft_lstclear(&llist, &delete_img_node);
-	mlx_terminate(mlx);
-	return (EXIT_SUCCESS);
+	return (1);
 }
+

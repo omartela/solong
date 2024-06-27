@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:34:42 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/27 12:16:07 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:22:20 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -36,30 +36,6 @@ void	extract_map_data(t_game *game, t_list **llist)
 		}
 		++y;
 	}
-}
-
-void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
-{
-	void	*new_ptr;
-	size_t	copy_size;
-
-	new_ptr = malloc(new_size);
-	if (!new_ptr)
-		return (NULL);
-	if (old_size < new_size)
-	{
-		copy_size = old_size;
-	}
-	else
-	{
-		copy_size = new_size;
-	}
-	if (ptr)
-	{
-		ft_memcpy(new_ptr, ptr, copy_size);
-		free(ptr);
-	}
-	return (new_ptr);
 }
 
 int	read_map(t_game *game)

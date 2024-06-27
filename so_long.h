@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/27 12:15:38 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:12:08 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ typedef struct s_img
 	char			*right_images[8];
 	char			*left_images[8];
 	char			previous_dir;
-	int			last_ri_index;
-	int			last_li_index;
+	int				last_ri_index;
+	int				last_li_index;
 	int				ri;
 	int				li;
 	int				i_ri;
@@ -61,16 +61,16 @@ typedef struct s_img
 typedef struct s_game
 {
 	int			move_count;
-	mlx_image_t *move_count_image;
+	mlx_image_t	*move_count_image;
 	int			score;
-	mlx_image_t *score_image;
+	mlx_image_t	*score_image;
 	mlx_t		*mlx;
 	char		**map;
 	char		*filename;
 	t_list		*llist;
 	size_t		map_width;
 	size_t		map_height;
-	int		collectibles;
+	int			collectibles;
 	size_t		players;
 	size_t		exits;
 	size_t		enemies;
@@ -86,22 +86,26 @@ void	error(char *s1);
 void	load_image_to_struct(t_list **llist, char *str, mlx_t *mlx);
 void	set_image_position(t_img *img, int pos_x, int pos_y);
 void	insert_image_to_window(void *content, int x, int y);
-int	read_map(t_game *game);
+int		read_map(t_game *game);
 void	delete_img_node(void *content);
-int	start_bfs(t_game *game);
-int	validate_map_chars_and_ext(t_game *game);
-int	validate_map(t_game *game);
+int		start_bfs(t_game *game);
+int		validate_map_chars_and_ext(t_game *game);
+int		validate_map(t_game *game);
 void	free_map(char **map, size_t i);
 void	extract_map_data(t_game *game, t_list **llist);
-int	check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i, int movement_x, int movement_y);
-int	check_obstacle(void *obc, t_img *p, int movement, char direction);
-int	check_collectable(void *content, t_img *p);
+int		check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i, int movement_x, int movement_y);
+int		check_obstacle(void *obc, t_img *p, int movement, char direction);
+int		check_collectable(void *content, t_img *p);
 void	check_exit(t_game *game, t_img *p);
 void	ft_hook_movement(mlx_key_data_t keydata, void *param);
 void	move_enemy(void *content);
 void	resize_image(void *content, unsigned int x, unsigned int y);
-int	check_collision_to_player(void *content, t_img *p);
-int	exit_game(t_game *game);
+int		check_collision_to_player(void *content, t_img *p);
+int		exit_game(t_game *game);
 void	free_map(char **map, size_t i);
+int		init_game(t_game *game);
+void	init_game_images(t_game *game, t_list **llist);
+void	animation(char direction, void *content);
+void	move_enemy(void *content);
 
 #endif
