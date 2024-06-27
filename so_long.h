@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/27 15:12:08 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:44:02 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,8 @@ int		init_game(t_game *game);
 void	init_game_images(t_game *game, t_list **llist);
 void	animation(char direction, void *content);
 void	move_enemy(void *content);
+int		check_visited(t_game *game, t_bfs *bfs);
+void	find_player_pos(t_game *game);
+void	init_bfs(t_bfs *bfs);
 
 #endif

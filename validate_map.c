@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 13:03:58 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/13 20:26:10 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:46:23 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -55,12 +55,12 @@ static int	validate_walls_top_bot(t_game *game)
 
 static size_t	calc_map_row_len(t_game *game, size_t i)
 {
-	size_t len;
+	size_t	len;
 
 	len = 0;
 	if (ft_strrchr(game->map[i], '\n'))
 	{
-		while(game->map[i][len] != '\n')
+		while (game->map[i][len] != '\n')
 			++len;
 	}
 	else

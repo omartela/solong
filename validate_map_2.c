@@ -6,10 +6,11 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:34:02 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/13 19:50:13 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:45:55 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
+
 static int	validate_file_ext(char *file)
 {
 	char	*ext;
@@ -55,7 +56,6 @@ static int	validate_map_chars(t_game *game)
 
 	w = 0;
 	h = 0;
-
 	while (h < game->map_height)
 	{
 		w = 0;

@@ -6,7 +6,7 @@
 #    By: omartela <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/30 22:32:46 by omartela          #+#    #+#              #
-#    Updated: 2024/06/27 14:35:00 by omartela         ###   ########.fr        #
+#    Updated: 2024/06/27 16:44:28 by omartela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBMLX	:= MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a libft/libft.a -g -lglfw -ldl -pthread -lm
-SRCS	:= main.c load_images.c read_map.c validate_map.c validate_map_2.c collision.c bfs.c handle_images.c movement.c exit_game.c init_game.c init_game_images.c animation.c move_enemy.c
+SRCS	:= main.c load_images.c read_map.c validate_map.c validate_map_2.c collision.c bfs.c bfs2.c handle_images.c movement.c exit_game.c init_game.c init_game_images.c animation.c move_enemy.c
 OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx $(NAME)
