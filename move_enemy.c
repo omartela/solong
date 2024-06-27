@@ -6,14 +6,14 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:29:18 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/27 14:33:55 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:50:47 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
 
 unsigned int	seed = 100;
 
-unsigned int	lcg()
+unsigned int	lcg(void)
 {
 	seed = (LCG_A * seed + LCG_C) % LCG_M;
 	return (seed);
@@ -39,19 +39,18 @@ char	get_direction_from_num(int number)
 
 void	move_enemy(void *content)
 {
-	int	number;
+	int		number;
 	t_img	*enemy;
-	t_game 	*game;
+	t_game	*game;
 	char	direction;
 
 	game = (t_game *)content;
 	enemy = game->llist->next->next->next->next->content;
-
 	number = generate_random_number(1, 4);
 	direction = get_direction_from_num(number);
-	seed += 1; 
+	seed += 1;
 	while (direction == enemy->previous_dir)
-		direction = get_direction_from_num(generate_random_number(1,4));
+		direction = get_direction_from_num(generate_random_number(1, 4));
 	if (direction == 'u')
 	{
 		if (!check_obstacle(game->llist->next->next->content, enemy, -TILE_SIZE, 'y' ))
@@ -72,7 +71,7 @@ void	move_enemy(void *content)
 	{
 		if (!check_obstacle(game->llist->next->next->content, enemy, -TILE_SIZE, 'x' ))
 		{
-			enemy->image->instances[0].x -= TILE_SIZE; 
+			enemy->image->instances[0].x -= TILE_SIZE;
 			animation('l', game->llist->next->next->next->next->content);
 			enemy->previous_dir = 'l';
 		}
