@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:25:10 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/28 11:52:01 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/28 12:19:18 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -115,7 +115,7 @@ void	ft_hook_movement(mlx_key_data_t keydata, void *param)
 	if (check_collision_to_player(enemy, player))
 		player->image->instances[0].enabled = false;
 	print_moves_and_score(game);
-	check_exit(game, player);
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		exit_game(game);
+	check_exit(game, player);
 }
