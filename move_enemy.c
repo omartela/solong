@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:29:18 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/27 16:50:47 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/28 12:17:38 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -37,6 +37,56 @@ char	get_direction_from_num(int number)
 	return ('r');
 }
 
+void	move_enemy_up(t_game *game, t_img *enemy)
+{
+	t_img	*obs;
+
+	obs = (t_img *)game->llist->next->next->content;
+	if (!check_obstacle(obs, enemy, -TILE_SIZE, 'y' ))
+	{
+		enemy->image->instances[0].y -= TILE_SIZE;
+		enemy->previous_dir = 'u';
+	}
+}
+
+void	move_enemy_down(t_game *game, t_img *enemy)
+{
+	t_img	*obs;
+
+	obs = (t_img *)game->llist->next->next->content;
+	if (!check_obstacle(obs, enemy, -TILE_SIZE, 'y' ))
+	{
+		enemy->image->instances[0].y += TILE_SIZE;
+		enemy->previous_dir = 'd';
+	}
+}
+
+void	move_enemy_left(t_game *game, t_img *enemy)
+{
+	t_img	*obs;
+
+	obs = (t_img *)game->llist->next->next->content;
+	if (!check_obstacle(obs, enemy, -TILE_SIZE, 'x' ))
+	{
+		enemy->image->instances[0].x -= TILE_SIZE;
+		animation('l', game->llist->next->next->next->next->content);
+		enemy->previous_dir = 'l';
+	}
+}
+
+void	move_enemy_right(t_game *game, t_img *enemy)
+{
+	t_img	*obs;
+
+	obs = (t_img *)game->llist->next->next->content;
+	if (!check_obstacle(obs, enemy, TILE_SIZE, 'x' ))
+	{
+		enemy->image->instances[0].x += TILE_SIZE;
+		animation('r', game->llist->next->next->next->next->content);
+		enemy->previous_dir = 'r';
+	}
+}
+
 void	move_enemy(void *content)
 {
 	int		number;
@@ -52,37 +102,11 @@ void	move_enemy(void *content)
 	while (direction == enemy->previous_dir)
 		direction = get_direction_from_num(generate_random_number(1, 4));
 	if (direction == 'u')
-	{
-		if (!check_obstacle(game->llist->next->next->content, enemy, -TILE_SIZE, 'y' ))
-		{
-			enemy->image->instances[0].y -= TILE_SIZE;
-			enemy->previous_dir = 'u';
-		}
-	}
+		move_enemy_up(game, enemy);
 	else if (direction == 'd')
-	{
-		if (!check_obstacle(game->llist->next->next->content, enemy, TILE_SIZE, 'y' ))
-		{
-			enemy->image->instances[0].y += TILE_SIZE;
-			enemy->previous_dir = 'd';
-		}
-	}
+		move_enemy_down(game, enemy);
 	else if (direction == 'l')
-	{
-		if (!check_obstacle(game->llist->next->next->content, enemy, -TILE_SIZE, 'x' ))
-		{
-			enemy->image->instances[0].x -= TILE_SIZE;
-			animation('l', game->llist->next->next->next->next->content);
-			enemy->previous_dir = 'l';
-		}
-	}
+		move_enemy_left(game, enemy);
 	else if (direction == 'r')
-	{
-		if (!check_obstacle(game->llist->next->next->content, enemy, TILE_SIZE, 'x' ))
-		{
-			enemy->image->instances[0].x += TILE_SIZE;
-			animation('r', game->llist->next->next->next->next->content);
-			enemy->previous_dir = 'r';
-		}
-	}
+		move_enemy_right(game, enemy);
 }
