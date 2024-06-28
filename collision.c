@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:26:43 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/27 14:41:56 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/28 12:30:59 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -79,11 +79,12 @@ int	check_collectable(void *content, t_img *p)
 	return (0);
 }
 
-void	check_exit(t_game *game, t_img *p)
+int	check_exit(t_game *game, t_img *p)
 {
 	if (check_collision_to_player(game->llist->next->next->next->content, p))
 	{
 		if (game->score == game->collectibles)
-			exit_game(game);
+			return (1);
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/27 16:44:02 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/28 12:45:10 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ void	extract_map_data(t_game *game, t_list **llist);
 int		check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i, int movement_x, int movement_y);
 int		check_obstacle(void *obc, t_img *p, int movement, char direction);
 int		check_collectable(void *content, t_img *p);
-void	check_exit(t_game *game, t_img *p);
+int		check_exit(t_game *game, t_img *p);
 void	ft_hook_movement(mlx_key_data_t keydata, void *param);
 void	move_enemy(void *content);
 void	resize_image(void *content, unsigned int x, unsigned int y);
 int		check_collision_to_player(void *content, t_img *p);
-int		exit_game(t_game *game);
+int		exit_game(t_game *game, int flag);
 void	free_map(char **map, size_t i);
 int		init_game(t_game *game);
 void	init_game_images(t_game *game, t_list **llist);
