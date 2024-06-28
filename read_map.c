@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:34:42 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/27 15:22:20 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/28 11:48:09 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -38,47 +38,54 @@ void	extract_map_data(t_game *game, t_list **llist)
 	}
 }
 
-int	read_map(t_game *game)
+static int	read_lines(int fd, char ***map, t_game *game)
 {
-	int		fd;
-	char	**map;
-	size_t	ln;
 	char	*line;
+	int		ln;
 
-	fd = open(game->filename, O_RDONLY);
-	if (fd == -1)
-		return (-1);
 	line = get_next_line(fd);
+	(*map)[0] = line;
 	if (!line)
-	{
-		close(fd);
-		return (-1);
-	}
-	map = malloc(1 * sizeof(char *));
-	if (!map)
-	{
-		close(fd);
-		return (-1);
-	}
-	map[0] = line;
+		return (0);
 	ln = 1;
 	while (line != NULL)
 	{
 		line = get_next_line(fd);
-		map = ft_realloc(map, ln * sizeof(char *), (ln + 1) * sizeof(char *));
-		if (!map)
+		*map = ft_realloc(*map, ln * sizeof(char *), (ln + 1) * sizeof(char *));
+		if (!*map)
 		{
-			free_map(map, ln);
+			free_map(*map, ln);
 			free(line);
-			close(fd);
-			return (-1);
+			line = NULL;
+			return (0);
 		}
-		map[ln] = line;
+		(*map)[ln] = line;
 		if (line)
 			++ln;
 	}
-	/// index start from 0 so that is why (line numbers)ln - 1
 	game->map_height = ln;
+	return (1);
+}
+
+int	read_map(t_game *game)
+{
+	int		fd;
+	char	**map;
+
+	fd = open(game->filename, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	map = malloc(1 * sizeof(char *));
+	if (!map)
+	{
+		close(fd);
+		return (0);
+	}
+	if (!read_lines(fd, &map, game))
+	{
+		close(fd);
+		return (0);
+	}
 	/// Every line has /0 character so thats why -1 so dont take that into account.
 	game->map_width = ft_strlen(map[0]) - 1;
 	game->map = map;
