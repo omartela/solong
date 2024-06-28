@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:25:10 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/27 15:11:15 by omartela         ###   ########.fr       */
+/*   Updated: 2024/06/28 11:52:01 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -102,8 +102,6 @@ void	ft_hook_movement(mlx_key_data_t keydata, void *param)
 	llist = game->llist;
 	player = (t_img *)llist->content;
 	enemy = llist->next->next->next->next->content;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		exit_game(game);
 	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
 		move_up(game);
 	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
@@ -112,10 +110,12 @@ void	ft_hook_movement(mlx_key_data_t keydata, void *param)
 		move_left(game);
 	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
 		move_right(game);
-	print_moves_and_score(game);
 	if (keydata.action == MLX_PRESS)
 		move_enemy(game);
 	if (check_collision_to_player(enemy, player))
 		player->image->instances[0].enabled = false;
+	print_moves_and_score(game);
 	check_exit(game, player);
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		exit_game(game);
 }
