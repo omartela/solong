@@ -97,6 +97,6 @@ int	validate_map(t_game *game)
 	if (!validate_map_chars_and_ext(game))
 		error(MAP_CHARS);
 	if (!start_bfs(game))
-		return (0);
+		error("Not valid map bfs failed\n");
 	return (1);
 }
