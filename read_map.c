@@ -30,8 +30,6 @@ void	extract_map_data(t_game *game, t_list **llist)
 				insert_image_to_window((*llist)->next->next->content, x * TILE_SIZE, y * TILE_SIZE + TILE_SIZE);
 			if (game->map[y][x] == 'E')
 				insert_image_to_window((*llist)->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE + TILE_SIZE);
-			if (game->map[y][x] == '!')
-				insert_image_to_window((*llist)->next->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE + TILE_SIZE);
 			++x;
 		}
 		++y;

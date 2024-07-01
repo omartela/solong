@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 23:25:34 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/28 15:44:38 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:00:31 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -16,7 +16,6 @@ void	init_game_variables(t_game *game)
 	game->players = 0;
 	game->exits = 0;
 	game->collectibles = 0;
-	game->enemies = 0;
 	game->move_count = 0;
 	game->score = 0;
 }
@@ -62,6 +61,7 @@ int	init_game(t_game *game)
 	if (!mlx)
 		error("Failed to initialize mlx");
 	game->mlx = mlx;
+	mlx_set_setting(MLX_STRETCH_IMAGE,1);
 	init_game_images(game, &llist);
 	extract_map_data(game, &llist);
 	game->llist = llist;

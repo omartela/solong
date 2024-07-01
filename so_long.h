@@ -45,17 +45,6 @@ typedef struct s_img
 	mlx_t			*mlx;
 	mlx_image_t		*image;
 	mlx_texture_t	*texture;
-	char			*r_idle_images[1];
-	char			*l_idle_images[1];
-	char			*right_images[9];
-	char			*left_images[9];
-	char			previous_dir;
-	int				last_ri_index;
-	int				last_li_index;
-	int				ri;
-	int				li;
-	int				i_ri;
-	int				i_li;
 }	t_img;
 
 typedef struct s_game
@@ -73,11 +62,8 @@ typedef struct s_game
 	int			collectibles;
 	size_t		players;
 	size_t		exits;
-	size_t		enemies;
 	size_t		player_x;
 	size_t		player_y;
-	size_t		enemy_x;
-	size_t		enemy_y;
 }	t_game;
 
 void	load_texture(char *str, t_img *i_s);
@@ -98,15 +84,12 @@ int		check_obstacle(void *obc, t_img *p, int movement, char direction);
 int		check_collectable(void *content, t_img *p);
 int		check_exit(t_game *game, t_img *p);
 void	ft_hook_movement(mlx_key_data_t keydata, void *param);
-void	move_enemy(void *content);
 void	resize_image(void *content, unsigned int x, unsigned int y);
 int		check_collision_to_player(void *content, t_img *p);
 int		exit_game(t_game *game, int flag);
 void	free_map(char **map, size_t i);
 int		init_game(t_game *game);
 void	init_game_images(t_game *game, t_list **llist);
-void	animation(char direction, void *content);
-void	move_enemy(void *content);
 int		check_visited(t_game *game, t_bfs *bfs);
 void	find_player_pos(t_game *game);
 void	init_bfs(t_bfs *bfs);

@@ -38,7 +38,6 @@ void	check_directions(t_bfs *bfs, t_game *game, int current_x, int current_y)
 		new_y = current_y + bfs->directions[i][1];
 		if (new_x < game->map_width && new_y < game->map_height
 			&& game->map[new_x][new_y] != '1'
-			&& game->map[new_x][new_y] != '!'
 			&& bfs->visited[new_x][new_y] == 0)
 		{
 			bfs->visited[new_x][new_y] = 1;

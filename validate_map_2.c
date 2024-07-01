@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:34:02 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/28 15:06:27 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:06:03 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -32,13 +32,11 @@ static void	check_character(t_game *game, int c)
 		game->players += 1;
 	else if (c == 'C')
 		game->collectibles += 1;
-	else if (c == '!')
-		game->enemies += 1;
 }
 
 static int	validate_map_char(char c)
 {
-	if (ft_strchr("PC1E0!", c))
+	if (ft_strchr("PC1E0", c))
 	{
 		return (1);
 	}
@@ -69,8 +67,6 @@ static int	validate_map_chars(t_game *game)
 		++h;
 	}
 	if (game->collectibles < 1 || game->players != 1 || game->exits != 1)
-		return (0);
-	if (game->enemies != 1)
 		return (0);
 	return (1);
 }
