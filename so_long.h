@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/28 12:45:10 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/01 11:49:38 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct s_img
 	mlx_texture_t	*texture;
 	char			*r_idle_images[1];
 	char			*l_idle_images[1];
-	char			*right_images[8];
-	char			*left_images[8];
+	char			*right_images[9];
+	char			*left_images[9];
 	char			previous_dir;
 	int				last_ri_index;
 	int				last_li_index;
