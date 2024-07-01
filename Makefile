@@ -16,7 +16,7 @@ LIBMLX	:= MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a libft/libft.a -g -lglfw -ldl -pthread -lm
-SRCS	:= main.c load_images.c read_map.c validate_map.c validate_map_2.c collision.c bfs.c bfs2.c handle_images.c movement.c exit_game.c init_game.c init_game_images.c animation.c move_enemy.c
+SRCS	:= main.c load_images.c read_map.c validate_map.c validate_map_2.c collision.c bfs.c bfs2.c handle_images.c movement.c exit_game.c init_game.c init_game_images.c
 OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx $(NAME)
