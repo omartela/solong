@@ -6,11 +6,11 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 16:38:47 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/27 16:44:09 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/01 19:26:52 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "so_long_bonus.h"
-
+#include "so_long.h"
+#include <stdio.h>
 int	check_visited(t_game *game, t_bfs *bfs)
 {
 	size_t	i;
@@ -22,19 +22,24 @@ int	check_visited(t_game *game, t_bfs *bfs)
 	j = 0;
 	collectibles_visited = 1;
 	exit_visited = 1;
-	while (i < game->map_height)
+	while (j < game->map_height)
 	{
-		j = 0;
-		while (j < game->map_height)
+		i = 0;
+		while (i < game->map_width)
 		{
 			if (game->map[j][i] == 'C' && bfs->visited[j][i] == 0)
+			{
+				printf("%d, %d, \n", (int)j, (int)i);
+				printf("visited number %d\n", bfs->visited[j][i]);
 				collectibles_visited = 0;
-			if (game->map[i][j] == 'E' && bfs->visited[i][j] == 0)
+			}
+			if (game->map[j][i] == 'E' && bfs->visited[j][i] == 0)
 				exit_visited = 0;
-			++j;
+			++i;
 		}
-		++i;
+		++j;
 	}
+	printf("check collectibles %d \n", collectibles_visited);
 	if (collectibles_visited && exit_visited)
 		return (1);
 	return (0);
@@ -80,7 +85,7 @@ void	init_bfs(t_bfs *bfs)
 	bfs->directions[3][1] = 0;
 	while (i < 100)
 	{
-		ft_bzero(bfs->visited[i], 100);
+		ft_bzero(bfs->visited[i], 100 * sizeof(int));
 		++i;
 	}
 }

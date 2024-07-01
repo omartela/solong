@@ -6,11 +6,11 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:02:33 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/01 12:14:40 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/01 20:21:04 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "so_long_bonus.h"
-
+#include "so_long.h"
+#include <stdio.h>
 void	push(t_bfs *bfs, int x, int y)
 {
 	bfs->q[bfs->back][0] = x;
@@ -36,12 +36,13 @@ void	check_directions(t_bfs *bfs, t_game *game, int current_x, int current_y)
 	{
 		new_x = current_x + bfs->directions[i][0];
 		new_y = current_y + bfs->directions[i][1];
+		printf("current coordinates %d, %d \n", current_y, current_x);
 		if (new_x < game->map_width && new_y < game->map_height
-			&& game->map[new_x][new_y] != '1'
-			&& game->map[new_x][new_y] != '!'
-			&& bfs->visited[new_x][new_y] == 0)
+			&& game->map[new_y][new_x] != '1'
+			&& bfs->visited[new_y][new_x] == 0)
 		{
-			bfs->visited[new_x][new_y] = 1;
+			printf("reachable position %ld %ld \n", new_y, new_x);
+			bfs->visited[new_y][new_x] = 1;
 			push(bfs, new_x, new_y);
 		}
 		++i;
@@ -60,8 +61,10 @@ void	bfs(t_game *game, t_bfs	*bfs)
 		current_x = bfs->q[bfs->front][0];
 		current_y = bfs->q[bfs->front][1];
 		pop(bfs);
+		printf("in algorithm front %d and back %d \n", bfs->front, bfs->back);
 		check_directions(bfs, game, current_x, current_y);
 	}
+	printf("front %d back %d \n", bfs->front, bfs->back);
 }
 
 int	start_bfs(t_game *game)
