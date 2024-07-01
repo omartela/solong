@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
-
+#include <stdio.h>
 void	push(t_bfs *bfs, int x, int y)
 {
 	bfs->q[bfs->back][0] = x;
@@ -37,11 +37,12 @@ void	check_directions(t_bfs *bfs, t_game *game, int current_x, int current_y)
 		new_x = current_x + bfs->directions[i][0];
 		new_y = current_y + bfs->directions[i][1];
 		if (new_x < game->map_width && new_y < game->map_height
-			&& game->map[new_x][new_y] != '1'
-			&& bfs->visited[new_x][new_y] == 0)
+			&& game->map[new_y][new_x] != '1'
+			&& bfs->visited[new_y][new_x] == 0)
 		{
-			bfs->visited[new_x][new_y] = 1;
-			push(bfs, new_x, new_y);
+			printf("reachable position %ld %ld \n", new_y, new_x);
+			bfs->visited[new_y][new_x] = 1;
+			push(bfs, new_y, new_x);
 		}
 		++i;
 	}
