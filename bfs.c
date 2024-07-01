@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:02:33 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/27 16:44:59 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:14:40 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -38,6 +38,7 @@ void	check_directions(t_bfs *bfs, t_game *game, int current_x, int current_y)
 		new_y = current_y + bfs->directions[i][1];
 		if (new_x < game->map_width && new_y < game->map_height
 			&& game->map[new_x][new_y] != '1'
+			&& game->map[new_x][new_y] != '!'
 			&& bfs->visited[new_x][new_y] == 0)
 		{
 			bfs->visited[new_x][new_y] = 1;
