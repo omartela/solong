@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/01 11:49:38 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:48:23 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 # define WALLS_TOP_BOT "Invalid map, bottom or top walls fail\n"
 # define WALLS_RECTANGLE "Invalid map, map is not rectangle\n"
 # define MAP_CHARS "Invalid map, map has invalid character \n"
-# define LCG_A 1103515245
-# define LCG_C 12345
-# define LCG_M 2147483648
 
 # include <stdio.h>
 # include <unistd.h>
