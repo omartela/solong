@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 23:25:34 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/01 21:35:50 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/01 21:55:10 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -36,7 +36,7 @@ int	check_width(t_game *game)
 {
 	int	width;
 
-	width = game->map_width * TILE_SIZE + TILE_SIZE;
+	width = game->map_width * TILE_SIZE;
 	if (width < 300)
 	{
 		return (300);
@@ -74,7 +74,7 @@ int	init_game(t_game *game)
 	if (!init_map(game))
 		return (0);
 	width = check_width(game);
-	height = game->map_height * TILE_SIZE + TILE_SIZE;
+	height = game->map_height * TILE_SIZE;
 	mlx = mlx_init(width, height, "Dwarf & Diamonds", true);
 	if (!mlx)
 		error("Failed to initialize mlx");
