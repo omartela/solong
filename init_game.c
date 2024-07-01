@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 23:25:34 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/01 13:00:31 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/01 21:35:50 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -44,6 +44,24 @@ int	check_width(t_game *game)
 	return (width);
 }
 
+int	check_map_size(int width, int height)
+{
+	int m_width;
+	int	m_height;
+
+	m_width = width;
+	m_height = height;
+	mlx_get_monitor_size(0, &m_width, &m_height);
+	printf("window width %d, window height %d\n", width, height);
+	printf("monitor width %d, monitor height %d\n", m_width, m_height);
+	if (width > m_width || height > m_height)
+	{
+		error("Map size too big. It is larger than monitor size");
+		return (0);
+	}
+	return (1);
+}
+
 int	init_game(t_game *game)
 {
 	mlx_t		*mlx;
@@ -60,6 +78,8 @@ int	init_game(t_game *game)
 	mlx = mlx_init(width, height, "Dwarf & Diamonds", true);
 	if (!mlx)
 		error("Failed to initialize mlx");
+	if (!check_map_size(width, height))
+			return (0);
 	game->mlx = mlx;
 	mlx_set_setting(MLX_STRETCH_IMAGE,1);
 	init_game_images(game, &llist);
