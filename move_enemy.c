@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:29:18 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/28 12:17:38 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:42:56 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -54,7 +54,7 @@ void	move_enemy_down(t_game *game, t_img *enemy)
 	t_img	*obs;
 
 	obs = (t_img *)game->llist->next->next->content;
-	if (!check_obstacle(obs, enemy, -TILE_SIZE, 'y' ))
+	if (!check_obstacle(obs, enemy, TILE_SIZE, 'y' ))
 	{
 		enemy->image->instances[0].y += TILE_SIZE;
 		enemy->previous_dir = 'd';
