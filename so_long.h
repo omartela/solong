@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/01 13:48:23 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/01 20:27:28 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_bfs
 {
 	int	front;
 	int	back;
-	int	q[100][2];
+	int	q[10000][2];
 	int	visited[100][100];
 	int	directions[4][2];
 }	t_bfs;
