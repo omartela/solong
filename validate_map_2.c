@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:34:02 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/01 13:06:03 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:11:01 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -60,7 +60,10 @@ static int	validate_map_chars(t_game *game)
 		while (w < game->map_width)
 		{
 			if (!validate_map_char(game->map[h][w]))
+			{
+				error(MAP_CHARS);
 				return (0);
+			}
 			check_character(game, game->map[h][w]);
 			++w;
 		}
