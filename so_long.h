@@ -13,7 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# define TILE_SIZE 32
+# define T_SIZE 32
 # define WALLS_SIDES "Invalid map, side walls fail\n"
 # define WALLS_TOP "Invalid map, top walls fail\n"
 # define WALLS_TOP_BOT "Invalid map, bottom or top walls fail\n"

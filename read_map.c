@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:34:42 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/01 21:55:54 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/02 09:26:55 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -23,13 +23,13 @@ void	extract_map_data(t_game *game, t_list **llist)
 		while (x < game->map_width)
 		{
 			if (game->map[y][x] == 'P')
-				insert_image_to_window((*llist)->content, x * TILE_SIZE, y * TILE_SIZE);
+				insert_image_to_window((*llist)->content, x * T_SIZE, y * T_SIZE);
 			if (game->map[y][x] == 'C')
-				insert_image_to_window((*llist)->next->content, x * TILE_SIZE, y * TILE_SIZE);
+				insert_image_to_window((*llist)->next->content, x * T_SIZE, y * T_SIZE);
 			if (game->map[y][x] == '1')
-				insert_image_to_window((*llist)->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
+				insert_image_to_window((*llist)->next->next->content, x * T_SIZE, y * T_SIZE);
 			if (game->map[y][x] == 'E')
-				insert_image_to_window((*llist)->next->next->next->content, x * TILE_SIZE, y * TILE_SIZE);
+				insert_image_to_window((*llist)->next->next->next->content, x * T_SIZE, y * T_SIZE);
 			++x;
 		}
 		++y;
@@ -84,7 +84,6 @@ int	read_map(t_game *game)
 		close(fd);
 		return (0);
 	}
-	/// Every line has /0 character so thats why -1 so dont take that into account.
 	game->map_width = ft_strlen(map[0]) - 1;
 	game->map = map;
 	close(fd);

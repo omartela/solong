@@ -15,8 +15,7 @@ void	error(char *s1)
 {
 	ft_putstr_fd("Error\n", 1);
 	ft_putstr_fd(s1, 1);
-	puts(mlx_strerror(mlx_errno));
-	exit(EXIT_FAILURE);
+	ft_putchar_fd('\n', 1);
 }
 
 void	free_map(char **map, size_t i)

@@ -13,10 +13,10 @@
 
 void	resize_images(t_list **llist)
 {
-	resize_image((*llist)->content, TILE_SIZE, TILE_SIZE);
-	resize_image((*llist)->next->content, TILE_SIZE, TILE_SIZE);
-	resize_image((*llist)->next->next->content, TILE_SIZE, TILE_SIZE);
-	resize_image((*llist)->next->next->next->content, TILE_SIZE, TILE_SIZE);
+	resize_image((*llist)->content, T_SIZE, T_SIZE);
+	resize_image((*llist)->next->content, T_SIZE, T_SIZE);
+	resize_image((*llist)->next->next->content, T_SIZE, T_SIZE);
+	resize_image((*llist)->next->next->next->content, T_SIZE, T_SIZE);
 }
 
 void	init_game_images(t_game *game, t_list **llist)

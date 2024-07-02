@@ -18,9 +18,9 @@ void	move_up(t_game *game)
 
 	llist = game->llist;
 	player = llist->content;
-	if (!check_obstacle(llist->next->next->content, player, -TILE_SIZE, 'y'))
+	if (!check_obstacle(llist->next->next->content, player, -T_SIZE, 'y'))
 	{
-		player->image->instances[0].y -= TILE_SIZE;
+		player->image->instances[0].y -= T_SIZE;
 		if (check_collectable(llist->next->content, player))
 			game->score += 1;
 		game->move_count += 1;
@@ -37,9 +37,9 @@ void	move_down(t_game *game)
 
 	llist = game->llist;
 	player = llist->content;
-	if (!check_obstacle(llist->next->next->content, player, TILE_SIZE, 'y'))
+	if (!check_obstacle(llist->next->next->content, player, T_SIZE, 'y'))
 	{
-		player->image->instances[0].y += TILE_SIZE;
+		player->image->instances[0].y += T_SIZE;
 		if (check_collectable(llist->next->content, player))
 			game->score += 1;
 		game->move_count += 1;
@@ -56,9 +56,9 @@ void	move_left(t_game *game)
 
 	llist = game->llist;
 	player = llist->content;
-	if (!check_obstacle(llist->next->next->content, player, -TILE_SIZE, 'x'))
+	if (!check_obstacle(llist->next->next->content, player, -T_SIZE, 'x'))
 	{
-		player->image->instances[0].x -= TILE_SIZE;
+		player->image->instances[0].x -= T_SIZE;
 		if (check_collectable(llist->next->content, player))
 			game->score += 1;
 		game->move_count += 1;
@@ -75,9 +75,9 @@ void	move_right(t_game *game)
 
 	llist = game->llist;
 	player = llist->content;
-	if (!check_obstacle(llist->next->next->content, player, TILE_SIZE, 'x'))
+	if (!check_obstacle(llist->next->next->content, player, T_SIZE, 'x'))
 	{
-		player->image->instances[0].x += TILE_SIZE;
+		player->image->instances[0].x += T_SIZE;
 		if (check_collectable(llist->next->content, player))
 			game->score += 1;
 		game->move_count += 1;
