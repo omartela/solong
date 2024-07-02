@@ -11,6 +11,11 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
+void	add_image_to_window(void *content, int x, int y)
+{
+	insert_image_to_window(content, x * T_SIZE, y * T_SIZE);
+}
+
 void	extract_map_data(t_game *game, t_list **llist)
 {
 	size_t	x;
@@ -23,13 +28,13 @@ void	extract_map_data(t_game *game, t_list **llist)
 		while (x < game->map_width)
 		{
 			if (game->map[y][x] == 'P')
-				insert_image_to_window((*llist)->content, x * T_SIZE, y * T_SIZE);
+				add_image_to_window((*llist)->content, x, y);
 			if (game->map[y][x] == 'C')
-				insert_image_to_window((*llist)->next->content, x * T_SIZE, y * T_SIZE);
+				add_image_to_window((*llist)->next->content, x, y);
 			if (game->map[y][x] == '1')
-				insert_image_to_window((*llist)->next->next->content, x * T_SIZE, y * T_SIZE);
+				add_image_to_window((*llist)->next->next->content, x, y);
 			if (game->map[y][x] == 'E')
-				insert_image_to_window((*llist)->next->next->next->content, x * T_SIZE, y * T_SIZE);
+				add_image_to_window((*llist)->next->next->next->content, x, y);
 			++x;
 		}
 		++y;
