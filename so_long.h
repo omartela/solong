@@ -28,6 +28,12 @@
 # include "libft/get_next_line.h"
 # include <fcntl.h>
 
+typedef struct s_movement
+{
+	int x;
+	int y;
+} t_movement;
+
 typedef struct s_bfs
 {
 	int	front;
@@ -76,7 +82,7 @@ int		validate_map_chars_and_ext(t_game *game);
 int		validate_map(t_game *game);
 void	free_map(char **map, size_t i);
 void	extract_map_data(t_game *game, t_list **llist);
-int		check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i, int movement_x, int movement_y);
+int		check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i, t_movement mv);
 int		check_obstacle(void *obc, t_img *p, int movement, char direction);
 int		check_collectable(void *content, t_img *p);
 int		check_exit(t_game *game, t_img *p);
