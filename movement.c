@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:25:10 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/28 16:02:14 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/02 09:06:12 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -24,6 +24,9 @@ void	move_up(t_game *game)
 		if (check_collectable(llist->next->content, player))
 			game->score += 1;
 		game->move_count += 1;
+		ft_putstr_fd("Move count: ", 1);
+		ft_putnbr_fd(game->move_count, 1);
+		ft_putchar_fd('\n', 1);
 	}
 }
 
@@ -40,6 +43,9 @@ void	move_down(t_game *game)
 		if (check_collectable(llist->next->content, player))
 			game->score += 1;
 		game->move_count += 1;
+		ft_putstr_fd("Move count: ", 1);
+		ft_putnbr_fd(game->move_count, 1);
+		ft_putchar_fd('\n', 1);
 	}
 }
 
@@ -56,6 +62,9 @@ void	move_left(t_game *game)
 		if (check_collectable(llist->next->content, player))
 			game->score += 1;
 		game->move_count += 1;
+		ft_putstr_fd("Move count: ", 1);
+		ft_putnbr_fd(game->move_count, 1);
+		ft_putchar_fd('\n', 1);
 	}
 }
 
@@ -72,6 +81,9 @@ void	move_right(t_game *game)
 		if (check_collectable(llist->next->content, player))
 			game->score += 1;
 		game->move_count += 1;
+		ft_putstr_fd("Move count: ", 1);
+		ft_putnbr_fd(game->move_count, 1);
+		ft_putchar_fd('\n', 1);
 	}
 }
 
