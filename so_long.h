@@ -30,8 +30,8 @@
 
 typedef struct s_movement
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 } t_movement;
 
 typedef struct s_bfs

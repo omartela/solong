@@ -11,21 +11,21 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-int	check_collision(mlx_image_t *obstacle, mlx_image_t *p, int i, t_movement mv)
+int	check_collision(mlx_image_t *obs, mlx_image_t *p, int i, t_movement mv)
 {
 	unsigned int	x1;
 	unsigned int	y1;
 	unsigned int	x2;
 	unsigned int	y2;
 
-	x1 = (unsigned int)obstacle->instances[i].x;
+	x1 = (unsigned int)obs->instances[i].x;
 	x2 = (unsigned int)p->instances[0].x + mv.x;
-	y1 = (unsigned int)obstacle->instances[i].y;
+	y1 = (unsigned int)obs->instances[i].y;
 	y2 = (unsigned int)p->instances[0].y + mv.y;
-	if (obstacle->instances[i].enabled == false)
+	if (obs->instances[i].enabled == false)
 		return (0);
-	if (x1 < x2 + p->width && x1 + obstacle->width > x2 && y1 < y2 + p->height
-		&& y1 + obstacle->height > y2)
+	if (x1 < x2 + p->width && x1 + obs->width > x2 && y1 < y2 + p->height
+		&& y1 + obs->height > y2)
 		return (1);
 	return (0);
 }

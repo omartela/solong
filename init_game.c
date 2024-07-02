@@ -86,8 +86,5 @@ int	init_game(t_game *game)
 	init_game_images(game, &llist);
 	extract_map_data(game, &llist);
 	game->llist = llist;
-	mlx_key_hook(mlx, &ft_hook_movement, game);
-	mlx_loop(mlx);
-	mlx_terminate(game->mlx);
 	return (1);
 }

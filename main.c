@@ -18,6 +18,11 @@ int	main(int argc, char *argv[])
 	if (argc == 2)
 	{
 		game.filename = argv[1];
-		init_game(&game);
+		if (init_game(&game))
+		{
+			mlx_key_hook(game.mlx, &ft_hook_movement, &game);
+			mlx_loop(game.mlx);
+			mlx_terminate(game.mlx);
+		}
 	}
 }
