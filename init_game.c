@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 23:25:34 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/02 09:25:27 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/02 09:45:12 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -52,8 +52,6 @@ int	check_map_size(int width, int height)
 	m_width = width;
 	m_height = height;
 	mlx_get_monitor_size(0, &m_width, &m_height);
-	printf("window width %d, window height %d\n", width, height);
-	printf("monitor width %d, monitor height %d\n", m_width, m_height);
 	if (width > m_width || height > m_height)
 	{
 		error("Map size too big. It is larger than monitor size");
