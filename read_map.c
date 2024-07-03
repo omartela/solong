@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:34:42 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/02 09:26:55 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:56:01 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -41,15 +41,26 @@ void	extract_map_data(t_game *game, t_list **llist)
 	}
 }
 
+static int	check_empty_file(int fd, char **line)
+{
+	*line = get_next_line(fd);
+	if (!(*line))
+	{
+		error("Read failed or empty file");
+		return (0);
+	}
+	return (1);
+}
+
 static int	read_lines(int fd, char ***map, t_game *game)
 {
 	char	*line;
 	int		ln;
 
-	line = get_next_line(fd);
-	(*map)[0] = line;
-	if (!line)
+	line = NULL;
+	if (!check_empty_file(fd, &line))
 		return (0);
+	(*map)[0] = line;
 	ln = 1;
 	while (line != NULL)
 	{
