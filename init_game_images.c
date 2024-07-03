@@ -19,11 +19,16 @@ void	resize_images(t_list **llist)
 	resize_image((*llist)->next->next->next->content, T_SIZE, T_SIZE);
 }
 
-void	init_game_images(t_game *game, t_list **llist)
+int	init_game_images(t_game *game, t_list **llist)
 {
-	load_image_to_struct(llist, "png/DwarfSprite1.png", game->mlx);
-	load_image_to_struct(llist, "png/amethyst.png", game->mlx);
-	load_image_to_struct(llist, "png/Rock Pile 1.PNG", game->mlx);
-	load_image_to_struct(llist, "png/Door02.png", game->mlx);
+	if (!load_image_to_struct(llist, "png/DwarfSprite1.png", game->mlx))
+		return (0);
+	if (!load_image_to_struct(llist, "png/amethyst.png", game->mlx))
+		return (0);
+	if (!load_image_to_struct(llist, "png/Rock Pile 1.PNG", game->mlx))
+		return (0);
+	if (!load_image_to_struct(llist, "png/Door02.png", game->mlx))
+		return (0);
 	resize_images(llist);
+	return (1);
 }
