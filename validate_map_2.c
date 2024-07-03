@@ -18,9 +18,15 @@ static int	validate_file_ext(char *file)
 	ext = NULL;
 	ext = ft_strrchr(file, '.');
 	if (ext == NULL)
+	{
+		error("Invalid file name or extension");
 		return (0);
+	}
 	if (ft_strncmp(ext, ".ber", 4) != 0)
+	{
+		error("Invalid file name or extension");
 		return (0);
+	}
 	return (1);
 }
 

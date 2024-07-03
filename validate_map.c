@@ -103,13 +103,13 @@ static int	validate_rectangle(t_game *game)
 
 int	validate_map(t_game *game)
 {
+	if (!validate_map_chars_and_ext(game))
+		return (0);
 	if (!validate_rectangle(game))
 		return (0);
 	if (!validate_walls_sides(game))
 		return (0);
 	if (!validate_walls_top_bot(game))
-		return (0);
-	if (!validate_map_chars_and_ext(game))
 		return (0);
 	if (!start_bfs(game))
 	{

@@ -77,7 +77,10 @@ int	read_map(t_game *game)
 
 	fd = open(game->filename, O_RDONLY);
 	if (fd == -1)
+	{
+		error("File could not be opened");
 		return (0);
+	}
 	map = malloc(1 * sizeof(char *));
 	if (!map)
 	{
