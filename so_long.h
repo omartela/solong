@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/02 14:03:43 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/03 09:17:52 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ typedef struct s_game
 	size_t		player_y;
 }	t_game;
 
-void	load_texture(char *str, t_img *i_s);
-void	load_image(char *str, mlx_t *mlx, t_img *i_s);
+int		load_texture(char *str, t_img *i_s);
+int		load_image(char *str, mlx_t *mlx, t_img *i_s);
 void	error(char *s1);
-void	load_image_to_struct(t_list **llist, char *str, mlx_t *mlx);
+int		load_image_to_struct(t_list **llist, char *str, mlx_t *mlx);
 void	set_image_position(t_img *img, int pos_x, int pos_y);
 void	insert_image_to_window(void *content, int x, int y);
 int		read_map(t_game *game);
@@ -92,7 +92,7 @@ int		check_collision_to_player(void *content, t_img *p);
 int		exit_game(t_game *game, int flag);
 void	free_map(char **map, size_t i);
 int		init_game(t_game *game);
-void	init_game_images(t_game *game, t_list **llist);
+int		init_game_images(t_game *game, t_list **llist);
 int		check_visited(t_game *game, t_bfs *bfs);
 void	find_player_pos(t_game *game);
 void	init_bfs(t_bfs *bfs);

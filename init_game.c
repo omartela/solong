@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 23:25:34 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/02 09:45:12 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/03 10:04:06 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -83,7 +83,11 @@ int	init_game(t_game *game)
 		return (0);
 	game->mlx = mlx;
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
-	init_game_images(game, &llist);
+	if (!init_game_images(game, &llist))
+	{
+		exit_game(game, 1);
+		return (0);
+	}
 	extract_map_data(game, &llist);
 	game->llist = llist;
 	return (1);
