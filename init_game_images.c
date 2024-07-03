@@ -22,13 +22,25 @@ void	resize_images(t_list **llist)
 int	init_game_images(t_game *game, t_list **llist)
 {
 	if (!load_image_to_struct(llist, "png/DwarfSprite1.png", game->mlx))
+	{
+		exit_game(game, 1);
 		return (0);
+	}
 	if (!load_image_to_struct(llist, "png/amethyst.png", game->mlx))
+	{
+		exit_game(game, 1);
 		return (0);
+	}
 	if (!load_image_to_struct(llist, "png/Rock Pile 1.PNG", game->mlx))
+	{
+		exit_game(game, 1);
 		return (0);
+	}
 	if (!load_image_to_struct(llist, "png/Door02.png", game->mlx))
+	{
+		exit_game(game, 1);
 		return (0);
+	}
 	resize_images(llist);
 	return (1);
 }
