@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:34:02 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/02 14:11:01 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:25:06 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -58,7 +58,6 @@ static int	validate_map_chars(t_game *game)
 	size_t	h;
 	size_t	w;
 
-	w = 0;
 	h = 0;
 	while (h < game->map_height)
 	{
@@ -76,7 +75,10 @@ static int	validate_map_chars(t_game *game)
 		++h;
 	}
 	if (game->collectibles < 1 || game->players != 1 || game->exits != 1)
+	{
+		error("Too few or too many players, collectibles or exits");
 		return (0);
+	}
 	return (1);
 }
 
