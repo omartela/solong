@@ -96,6 +96,8 @@ int	check_exit(t_game *game, t_img *p)
 	{
 		if (game->score == game->collectibles)
 			return (1);
+		else
+			ft_putstr_fd("You need to collect all the diamonds first \n", 1);
 	}
 	return (0);
 }
