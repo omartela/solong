@@ -25,5 +25,6 @@ int	main(int argc, char *argv[])
 			mlx_terminate(game.mlx);
 		}
 	}
-	error("Too few or too many arguments");
+	else
+		error("Too few or too many arguments");
 }
