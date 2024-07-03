@@ -80,7 +80,7 @@ int	init_game(t_game *game)
 		return (0);
 	width = game->map_width * T_SIZE;
 	if (width < 300)
-		width 300
+		width = 300;
 	height = game->map_height * T_SIZE;
 	if (!init_mlx(game, width, height))
 		return (0);
