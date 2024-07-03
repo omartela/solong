@@ -32,18 +32,6 @@ int	init_map(t_game *game)
 	return (1);
 }
 
-int	check_width(t_game *game)
-{
-	int	width;
-
-	width = game->map_width * T_SIZE;
-	if (width < 300)
-	{
-		return (300);
-	}
-	return (width);
-}
-
 int	check_map_size(int width, int height)
 {
 	int	m_width;
@@ -90,9 +78,11 @@ int	init_game(t_game *game)
 	init_game_variables(game);
 	if (!init_map(game))
 		return (0);
-	width = check_width(game);
+	width = game->map_width * T_SIZE;
+	if (width < 300)
+		width 300
 	height = game->map_height * T_SIZE;
-	if(!init_mlx(game, width, height))
+	if (!init_mlx(game, width, height))
 		return (0);
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	if (!init_game_images(game, &llist))
