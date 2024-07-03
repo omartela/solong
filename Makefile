@@ -6,11 +6,11 @@
 #    By: omartela <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/30 22:32:46 by omartela          #+#    #+#              #
-#    Updated: 2024/06/28 15:54:32 by omartela         ###   ########.fr        #
+#    Updated: 2024/07/03 15:19:23 by omartela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:= solong
+NAME	:= so_long
 CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code
 LIBMLX	:= MLX42
 
