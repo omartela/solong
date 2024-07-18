@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_enemy.c                                       :+:      :+:    :+:   */
+/*   move_enemy_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/27 14:29:18 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/01 12:42:56 by omartela         ###   ########.fr       */
+/*   Created: 2024/07/18 08:57:13 by omartela          #+#    #+#             */
+/*   Updated: 2024/07/18 14:49:12 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long_bonus.h"
@@ -15,7 +15,7 @@ unsigned int	seed = 100;
 
 unsigned int	lcg(void)
 {
-	seed = (LCG_A * seed + LCG_C) % LCG_M;
+	seed = (LCG_A * seed + (int)mlx_get_time() + LCG_C) % LCG_M;
 	return (seed);
 }
 
@@ -26,6 +26,7 @@ int	generate_random_number(int min, int max)
 
 char	get_direction_from_num(int number)
 {
+	number = number % 4;
 	if (number == 1)
 		return ('u');
 	if (number == 2)
@@ -100,7 +101,7 @@ void	move_enemy(void *content)
 	direction = get_direction_from_num(number);
 	seed += 1;
 	while (direction == enemy->previous_dir)
-		direction = get_direction_from_num(generate_random_number(1, 4));
+		direction = get_direction_from_num(generate_random_number(-100000, 100000));
 	if (direction == 'u')
 		move_enemy_up(game, enemy);
 	else if (direction == 'd')

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate_map_2.c                                   :+:      :+:    :+:   */
+/*   validate_map_2_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 15:34:02 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/01 13:06:03 by omartela         ###   ########.fr       */
+/*   Created: 2024/07/18 08:58:50 by omartela          #+#    #+#             */
+/*   Updated: 2024/07/18 14:45:06 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long_bonus.h"
@@ -19,7 +19,7 @@ static int	validate_file_ext(char *file)
 	ext = ft_strrchr(file, '.');
 	if (ext == NULL)
 		return (0);
-	if (ft_strncmp(ext, ".ber", 4) != 0)
+	if (ft_strncmp(ext, ".ber\0", 5) != 0)
 		return (0);
 	return (1);
 }
@@ -38,7 +38,7 @@ static void	check_character(t_game *game, int c)
 
 static int	validate_map_char(char c)
 {
-	if (ft_strchr("PC1E0", c))
+	if (ft_strchr("PC1!E0", c))
 	{
 		return (1);
 	}

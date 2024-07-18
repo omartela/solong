@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_enemy2.c                                      :+:      :+:    :+:   */
+/*   move_enemy2_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 12:20:55 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/01 12:21:41 by omartela         ###   ########.fr       */
+/*   Created: 2024/07/18 09:05:39 by omartela          #+#    #+#             */
+/*   Updated: 2024/07/18 09:05:43 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
-unsigned int	seed = 100;
+/*unsigned int	seed = 100;
 
 unsigned int	lcg(void)
 {
@@ -35,4 +35,4 @@ char	get_direction_from_num(int number)
 	if (number == 4)
 		return ('r');
 	return ('r');
-}
+}*/

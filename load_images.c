@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:32:17 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/03 09:16:03 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:09:32 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -70,6 +70,7 @@ int	load_image(char *str, mlx_t *mlx, t_img *i_s)
 {
 	mlx_image_t		*img;
 
+	img = NULL;
 	load_texture(str, i_s);
 	if (i_s->texture)
 	{

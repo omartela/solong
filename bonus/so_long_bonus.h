@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 14:52:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/01 11:49:38 by omartela         ###   ########.fr       */
+/*   Created: 2024/07/18 08:58:08 by omartela          #+#    #+#             */
+/*   Updated: 2024/07/18 14:31:04 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # define TILE_SIZE 32
 # define WALLS_SIDES "Invalid map, side walls fail\n"
@@ -26,9 +26,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include "MLX42/include/MLX42/MLX42.h"
-# include "libft/libft.h"
-# include "libft/get_next_line.h"
+# include "../MLX42/include/MLX42/MLX42.h"
+# include "../libft/libft.h"
+# include "../libft/get_next_line.h"
 # include <fcntl.h>
 
 typedef struct s_bfs

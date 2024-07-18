@@ -1,16 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bfs2.c                                             :+:      :+:    :+:   */
+/*   bfs2_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/27 16:38:47 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/01 19:26:52 by omartela         ###   ########.fr       */
+/*   Created: 2024/07/18 08:50:53 by omartela          #+#    #+#             */
+/*   Updated: 2024/07/18 14:31:38 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "so_long.h"
-#include <stdio.h>
+#include "so_long_bonus.h"
 int	check_visited(t_game *game, t_bfs *bfs)
 {
 	size_t	i;
@@ -28,18 +27,13 @@ int	check_visited(t_game *game, t_bfs *bfs)
 		while (i < game->map_width)
 		{
 			if (game->map[j][i] == 'C' && bfs->visited[j][i] == 0)
-			{
-				printf("%d, %d, \n", (int)j, (int)i);
-				printf("visited number %d\n", bfs->visited[j][i]);
 				collectibles_visited = 0;
-			}
 			if (game->map[j][i] == 'E' && bfs->visited[j][i] == 0)
 				exit_visited = 0;
 			++i;
 		}
 		++j;
 	}
-	printf("check collectibles %d \n", collectibles_visited);
 	if (collectibles_visited && exit_visited)
 		return (1);
 	return (0);

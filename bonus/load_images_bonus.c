@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_images.c                                      :+:      :+:    :+:   */
+/*   load_images_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 14:32:17 by omartela          #+#    #+#             */
-/*   Updated: 2024/06/28 15:45:28 by omartela         ###   ########.fr       */
+/*   Created: 2024/07/18 08:55:28 by omartela          #+#    #+#             */
+/*   Updated: 2024/07/18 08:55:30 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long_bonus.h"
@@ -64,6 +64,7 @@ void	load_image(char *str, mlx_t *mlx, t_img *i_s)
 {
 	mlx_image_t		*img;
 
+	img = NULL;
 	load_texture(str, i_s);
 	if (i_s->texture)
 	{
