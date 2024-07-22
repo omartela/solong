@@ -6,14 +6,14 @@
 #    By: omartela <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/30 22:32:46 by omartela          #+#    #+#              #
-#    Updated: 2024/07/18 14:39:02 by omartela         ###   ########.fr        #
+#    Updated: 2024/07/22 11:42:28 by omartela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= so_long
 BONUS_NAME := so_long_bonus
 CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code
-LIBMLX	:= MLX42
+LIBMLX	:= ./MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a libft/libft.a -g -lglfw -ldl -pthread -lm
@@ -53,8 +53,14 @@ BONUS_OBJS := ${SRCS_BONUS:.c=.o}
 
 all: $(NAME)
 
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+$(LIBMLX)/build/libmlx42.a:
+	@if [ ! -d "$(LIBMLX)/build" ]; then \
+		cmake $(LIBMLX) -B $(LIBMLX)/build; \
+		fi
+	@make -C $(LIBMLX)/build -j4
+
+libmlx: $(LIBMLX)/build/libmlx42.a
+
 libft:
 	@make -C libft && make -C libft bonus
 %.o: %.c
