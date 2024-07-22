@@ -20,7 +20,6 @@
 # define WALLS_RECTANGLE "Invalid map, map is not rectangle\n"
 # define MAP_CHARS "Invalid map, map has invalid character \n"
 
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include "MLX42/include/MLX42/MLX42.h"
