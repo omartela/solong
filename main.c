@@ -11,6 +11,13 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
+void close_window(void *param)
+{
+	t_game *game;
+	game = (t_game *)param;
+	free_game_assets(game);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_game		game;
@@ -21,8 +28,8 @@ int	main(int argc, char *argv[])
 		if (init_game(&game))
 		{
 			mlx_key_hook(game.mlx, &ft_hook_movement, &game);
+			mlx_close_hook(game.mlx, &close_window, &game);
 			mlx_loop(game.mlx);
-			free_game_assets(&game);
 			mlx_terminate(game.mlx);
 		}
 	}
