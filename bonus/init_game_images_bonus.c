@@ -22,7 +22,7 @@ void	init_image_indexes(t_img *img, int last_li_index, int last_ri_index)
 	img->previous_dir = 'r';
 }
 
-void	init_enemy_images(t_game *game, t_list **llist)
+int	init_enemy_images(t_game *game, t_list **llist)
 {
 	t_img	*img;
 
@@ -49,9 +49,10 @@ void	init_enemy_images(t_game *game, t_list **llist)
 	img->r_idle_images[0] = "png/goblinright-1.png";
 	img->l_idle_images[0] = "png/goblinleft-1.png";
 	init_image_indexes(img, 8, 8);
+	return (1);
 }
 
-void	init_player_images(t_game *game, t_list **llist)
+int	init_player_images(t_game *game, t_list **llist)
 {
 	t_img	*img;
 
@@ -76,6 +77,7 @@ void	init_player_images(t_game *game, t_list **llist)
 	img->r_idle_images[0] = "png/DwarfSprite1.png";
 	img->l_idle_images[0] = "png/DwarfSprite_left.png";
 	init_image_indexes(img, 7, 7);
+	return (1);
 }
 
 void	resize_images(t_list **llist)
@@ -83,23 +85,36 @@ void	resize_images(t_list **llist)
 	void	*content;
 
 	content = (*llist)->next->next->next->next->content;
-	resize_image((*llist)->content, TILE_SIZE, TILE_SIZE);
-	resize_image((*llist)->next->content, TILE_SIZE, TILE_SIZE);
-	resize_image((*llist)->next->next->content, TILE_SIZE, TILE_SIZE);
-	resize_image((*llist)->next->next->next->content, TILE_SIZE, TILE_SIZE);
-	resize_image(content, TILE_SIZE, TILE_SIZE);
+	resize_image((*llist)->content, T_SIZE, T_SIZE);
+	resize_image((*llist)->next->content, T_SIZE, T_SIZE);
+	resize_image((*llist)->next->next->content, T_SIZE, T_SIZE);
+	resize_image((*llist)->next->next->next->content, T_SIZE, T_SIZE);
+	resize_image(content, T_SIZE, T_SIZE);
 }
 
-void	init_game_images(t_game *game, t_list **llist)
+int	init_game_images(t_game *game, t_list **llist)
 {
 	mlx_put_string(game->mlx, "Move count:", 0, 0);
 	mlx_put_string(game->mlx, "Score:", 17 * 10, 0);
 	game->move_count_image = mlx_put_string(game->mlx, "0", 12 * 10, 0);
 	game->score_image = mlx_put_string(game->mlx, "0", 24 * 10, 0);
-	init_player_images(game, llist);
-	load_image_to_struct(llist, "png/amethyst.png", game->mlx);
-	load_image_to_struct(llist, "png/Rock Pile 1.PNG", game->mlx);
-	load_image_to_struct(llist, "png/Door02.png", game->mlx);
-	init_enemy_images(game, llist);
+	if (!init_player_images(game, llist))
+	{
+		error("Initializing player images failed");
+		exit_game(game, 1);
+		return (0);
+	}
+	if (!load_image_to_struct(llist, "png/amethyst.png", game->mlx))
+		return (0);
+	if (!load_image_to_struct(llist, "png/Rock Pile 1.PNG", game->mlx))
+		return (0);
+	if (!load_image_to_struct(llist, "png/Door02.png", game->mlx))
+		return (0);
+	if (!init_enemy_images(game, llist))
+	{
+		error("Initializing enemy images failed");
+		return (0);
+	}
 	resize_images(llist);
+	return (1);
 }

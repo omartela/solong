@@ -11,10 +11,11 @@
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
-/*unsigned int	seed = 100;
-
-unsigned int	lcg(void)
+int	lcg(void)
 {
+	int seed;
+
+	seed = 0;
 	seed = (LCG_A * seed + LCG_C) % LCG_M;
 	return (seed);
 }
@@ -35,4 +36,4 @@ char	get_direction_from_num(int number)
 	if (number == 4)
 		return ('r');
 	return ('r');
-}*/
+}

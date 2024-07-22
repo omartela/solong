@@ -15,18 +15,19 @@ void	error(char *s1)
 {
 	ft_putstr_fd("Error\n", 1);
 	ft_putstr_fd(s1, 1);
-	puts(mlx_strerror(mlx_errno));
-	exit(EXIT_FAILURE);
 }
 
 void	free_map(char **map, size_t i)
 {
-	while (i > 0)
+	if (map)
 	{
-		i--;
-		free(map[i]);
+		while (i > 0)
+		{
+			i--;
+			free(map[i]);
+		}
+		free(map);
 	}
-	free(map);
 }
 
 void	free_game_assets(t_game *game)
@@ -35,7 +36,9 @@ void	free_game_assets(t_game *game)
 
 	llist = game->llist;
 	free_map(game->map, game->map_height);
+	game->map = NULL;
 	ft_lstclear(&llist, &delete_img_node);
+	llist = NULL;
 }
 
 int	exit_game(t_game *game, int flag)

@@ -11,6 +11,13 @@
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
+void close_window(void *param)
+{
+	t_game *game;
+	game = (t_game *)param;
+	free_game_assets(game);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_game		game;
@@ -18,6 +25,14 @@ int	main(int argc, char *argv[])
 	if (argc == 2)
 	{
 		game.filename = argv[1];
-		init_game(&game);
+		if (init_game(&game))
+		{
+			mlx_key_hook(game.mlx, &ft_hook_movement, &game);
+			mlx_close_hook(game.mlx, &close_window, &game);
+			mlx_loop(game.mlx);
+			mlx_terminate(game.mlx);
+		}
 	}
+	else
+		error("Too few or too many arguments");
 }

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long_bonus.h"
+
 void	push(t_bfs *bfs, int x, int y)
 {
 	bfs->q[bfs->back][0] = x;

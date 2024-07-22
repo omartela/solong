@@ -46,6 +46,7 @@ SRCS_BONUS := bonus/animation_bonus.c \
 			  bonus/read_map_bonus.c \
 			  bonus/validate_map_2_bonus.c \
 			  bonus/validate_map_bonus.c \
+			  bonus/print_moves_score_bonus.c \
 
 OBJS	:= ${SRCS:.c=.o}
 
@@ -84,4 +85,4 @@ fclean: clean
 	make -C libft fclean
 re: clean all
 
-.PHONY: all clean fclean re libmlx libft
+.PHONY: all clean fclean re libmlx libft bonus

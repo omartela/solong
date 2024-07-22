@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
-void	load_image_to_struct(t_list **llist, char *str, mlx_t *mlx)
+int	load_image_to_struct(t_list **llist, char *str, mlx_t *mlx)
 {
 	t_img	*img_s;
 	t_list	*new;
@@ -19,7 +19,7 @@ void	load_image_to_struct(t_list **llist, char *str, mlx_t *mlx)
 	img_s = malloc(sizeof(t_img));
 	if (!img_s)
 	{
-		ft_lstclear(llist, &delete_img_node);
+		return (0);
 	}
 	else
 	{
@@ -30,12 +30,14 @@ void	load_image_to_struct(t_list **llist, char *str, mlx_t *mlx)
 		{
 			new = ft_lstnew(img_s);
 			ft_lstadd_back(llist, new);
+			return (1);
 		}
 		else
 		{
-			ft_lstclear(llist, &delete_img_node);
+			return (0);
 		}
 	}
+	return (1);
 }
 
 void	delete_img_node(void *content)
@@ -50,17 +52,21 @@ void	delete_img_node(void *content)
 	}
 }
 
-void	load_texture(char *str, t_img *i_s)
+int	load_texture(char *str, t_img *i_s)
 {
 	mlx_texture_t	*texture;
 
 	texture = mlx_load_png(str);
 	if (!texture)
+	{
 		error("Load texture failed");
+		return (0);
+	}
 	i_s->texture = texture;
+	return (1);
 }
 
-void	load_image(char *str, mlx_t *mlx, t_img *i_s)
+int	load_image(char *str, mlx_t *mlx, t_img *i_s)
 {
 	mlx_image_t		*img;
 
@@ -72,6 +78,10 @@ void	load_image(char *str, mlx_t *mlx, t_img *i_s)
 		mlx_delete_texture(i_s->texture);
 	}
 	if (!img)
+	{
 		error("Load image failed");
+		return (0);
+	}
 	i_s->image = img;
+	return (1);
 }

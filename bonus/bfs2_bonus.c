@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long_bonus.h"
+
 int	check_visited(t_game *game, t_bfs *bfs)
 {
 	size_t	i;
