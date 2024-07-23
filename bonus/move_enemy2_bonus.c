@@ -6,16 +6,15 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:05:39 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/23 13:16:42 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:03:20 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long_bonus.h"
-#include "stdio.h"
-char get_direction(t_game *game)
+char	get_direction(t_game *game)
 {
-    t_img *player;
-    t_img *enemy;
-    t_img *obs;
+    t_img	*player;
+    t_img	*enemy;
+    t_img	*obs;
 
     obs = (t_img *)game->llist->next->next->content;
     player = (t_img *)game->llist->content;
@@ -30,9 +29,7 @@ char get_direction(t_game *game)
     // Calculate distances
     int dx = player_x - enemy_x;
     int dy = player_y - enemy_y;
-	printf("player x %d, player y %d \n", player_x, player_x);
-	printf("enemy x %d, enemy y %d \n", enemy_x, enemy_x);
-	printf("%d %d \n", dx, dy);
+
     // Handle alignment cases
     if (player_x == enemy_x) // Same vertical level
     {
@@ -82,8 +79,6 @@ char get_direction(t_game *game)
 				return ('r');
         }
     }
-
-    // Default return if no direction is valid
-    return 'r';  // Stay
+    return 'r';
 }
 

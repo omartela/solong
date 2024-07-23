@@ -90,6 +90,10 @@ void	ft_hook_movement(mlx_key_data_t keydata, void *param)
 	game = (t_game *)param;
 	player = (t_img *)game->llist->content;
 	enemy = game->llist->next->next->next->next->content;
+	if (keydata.action == MLX_PRESS)
+		move_enemy(game);
+	if (check_collision_to_player(enemy, player))
+		flag = 1;
 	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
 		move_up(game);
 	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
@@ -98,10 +102,6 @@ void	ft_hook_movement(mlx_key_data_t keydata, void *param)
 		move_left(game);
 	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
 		move_right(game);
-	if (keydata.action == MLX_PRESS)
-		move_enemy(game);
-	if (check_collision_to_player(enemy, player))
-		flag = 1;
 	print_moves_and_score(game);
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		flag = 1;
