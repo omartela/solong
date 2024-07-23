@@ -116,8 +116,8 @@ int		check_visited(t_game *game, t_bfs *bfs);
 void	find_player_pos(t_game *game);
 void	init_bfs(t_bfs *bfs);
 int		lcg(void);
-int		generate_random_number(int min, int max);
-char	get_direction_from_num(int number);
+int		generate_random_number(unsigned long next);
+char	get_direction(t_game *game);
 void	print_moves_and_score(t_game *game);
 void	free_game_assets(t_game *game);
 

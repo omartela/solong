@@ -65,17 +65,13 @@ void	move_enemy_right(t_game *game, t_img *enemy)
 
 void	move_enemy(void *content)
 {
-	int		number;
-	t_img	*enemy;
-	t_game	*game;
-	char	direction;
+	t_img						*enemy;
+	t_game						*game;
+	char						direction;
 
 	game = (t_game *)content;
 	enemy = game->llist->next->next->next->next->content;
-	number = generate_random_number(1, 4);
-	direction = get_direction_from_num(number);
-	while (direction == enemy->previous_dir)
-		direction = get_direction_from_num(generate_random_number(-1000, 1000));
+	direction = get_direction(game);
 	if (direction == 'u')
 		move_enemy_up(game, enemy);
 	else if (direction == 'd')
