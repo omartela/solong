@@ -6,104 +6,84 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:05:39 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/23 17:29:25 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/24 10:11:48 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
-static void	check_diagonal(t_img *obs, t_img *enemy, int dx, int dy)
+static char	check_diagonal(t_img *obs, t_img *enemy, int dx, int dy)
 {
-	// Prioritize movement to reduce the largest distance
-	if (abs(dx) > abs(dy)) // Larger horizontal distance
+	if (abs(dx) > abs(dy))
 	{
 		if (dx < 0 && !check_obstacle(obs, enemy, -T_SIZE, 'x'))
-			return 'l';  // Move Left
+			return ('l');
 		if (dx > 0 && !check_obstacle(obs, enemy, T_SIZE, 'x'))
-			return 'r';  // Move Right
+			return ('r');
 		if (!check_obstacle(obs, enemy, -T_SIZE, 'y'))
 			return ('u');
 		if (!check_obstacle(obs, enemy, T_SIZE, 'y'))
 			return ('d');
 	}
-	else // Larger vertical distance
+	else
 	{
 		if (dy < 0 && !check_obstacle(obs, enemy, -T_SIZE, 'y'))
-			return 'u';  // Move Up
+			return ('u');
 		if (dy > 0 && !check_obstacle(obs, enemy, T_SIZE, 'y'))
-			return 'd';  // Move Down
+			return ('d');
 		if (!check_obstacle(obs, enemy, -T_SIZE, 'x'))
 			return ('l');
 		if (!check_obstacle(obs, enemy, T_SIZE, 'x'))
 			return ('r');
 	}
+	return ('r');
+}
+
+static char	check_vertical(t_img *obs, t_img *enemy, int dy)
+{
+	if (dy < 0 && !check_obstacle(obs, enemy, -T_SIZE, 'y'))
+		return ('u');
+	if (dy > 0 && !check_obstacle(obs, enemy, T_SIZE, 'y'))
+		return ('d');
+	if (!check_obstacle(obs, enemy, -T_SIZE, 'x'))
+		return ('l');
+	if (!check_obstacle(obs, enemy, T_SIZE, 'x'))
+		return ('r');
+	return ('r');
+}
+
+static char	check_horizontal(t_img *obs, t_img *enemy, int dx)
+{
+	if (dx < 0 && !check_obstacle(obs, enemy, -T_SIZE, 'x'))
+		return ('l');
+	if (dx > 0 && !check_obstacle(obs, enemy, T_SIZE, 'x'))
+		return ('r');
+	if (!check_obstacle(obs, enemy, -T_SIZE, 'y'))
+		return ('u');
+	if (!check_obstacle(obs, enemy, T_SIZE, 'y'))
+		return ('d');
+	return ('r');
 }
 
 char	get_direction(t_game *game)
 {
 	t_img	*player;
 	t_img	*enemy;
-	t_img	*obs;
+	//t_img	*obs;
+	int		dx;
+	int		dy;
+	char	direction;
 
-	obs = (t_img *)game->llist->next->next->content;
+	direction = 'r';
+	//obs = (t_img *)game->llist->next->next->content;
 	player = (t_img *)game->llist->content;
 	enemy = (t_img *)game->llist->next->next->next->next->content;
-	int player_x = player->image->instances[0].x;
-	int player_y = player->image->instances[0].y;
-	int enemy_x = enemy->image->instances[0].x;
-	int enemy_y = enemy->image->instances[0].y;
-
-    // Calculate distances
-	int dx = player_x - enemy_x;
-	int dy = player_y - enemy_y;
-
-    // Handle alignment cases
-	if (player_x == enemy_x) // Same vertical level
-	{
-		if (dy < 0 && !check_obstacle(obs, enemy, -T_SIZE, 'y'))
-			return 'u';  // Move Up
-		if (dy > 0 && !check_obstacle(obs, enemy, T_SIZE, 'y'))
-			return 'd';  // Move Down
-		if (!check_obstacle(obs, enemy, -T_SIZE, 'x'))
-			return ('l');
-		if (!check_obstacle(obs, enemy, T_SIZE, 'x'))
-			return ('r');
-	}
-	else if (player_y == enemy_y) // Same horizontal level
-	{
-		if (dx < 0 && !check_obstacle(obs, enemy, -T_SIZE, 'x'))
-			return 'l';  // Move Left
-		if (dx > 0 && !check_obstacle(obs, enemy, T_SIZE, 'x'))
-			return 'r';  // Move Right
-		if (!check_obstacle(obs, enemy, -T_SIZE, 'y'))
-			return ('u');
-		if (!check_obstacle(obs, enemy, T_SIZE, 'y'))
-			return ('d');
-	}
-	else // Diagonal case
-	{
-		// Prioritize movement to reduce the largest distance
-		if (abs(dx) > abs(dy)) // Larger horizontal distance
-		{
-			if (dx < 0 && !check_obstacle(obs, enemy, -T_SIZE, 'x'))
-				return 'l';  // Move Left
-			if (dx > 0 && !check_obstacle(obs, enemy, T_SIZE, 'x'))
-				return 'r';  // Move Right
-			if (!check_obstacle(obs, enemy, -T_SIZE, 'y'))
-				return ('u');
-			if (!check_obstacle(obs, enemy, T_SIZE, 'y'))
-				return ('d');
-		}
-		else // Larger vertical distance
-		{
-			if (dy < 0 && !check_obstacle(obs, enemy, -T_SIZE, 'y'))
-				return 'u';  // Move Up
-			if (dy > 0 && !check_obstacle(obs, enemy, T_SIZE, 'y'))
-				return 'd';  // Move Down
-			if (!check_obstacle(obs, enemy, -T_SIZE, 'x'))
-				return ('l');
-			if (!check_obstacle(obs, enemy, T_SIZE, 'x'))
-				return ('r');
-		}
-	}
-	return ('r');
+	dx = player->image->instances[0].x - enemy->image->instances[0].x;
+	dy = player->image->instances[0].y - enemy->image->instances[0].y;
+	if (player->image->instances[0].x == enemy->image->instances[0].x)
+		direction = check_vertical(game->llist->next->next->content, enemy, dy);
+	else if (player->image->instances[0].y == enemy->image->instances[0].y)
+		direction = check_horizontal(game->llist->next->next->content, enemy, dy);
+	else
+		direction = check_diagonal(game->llist->next->next->content, enemy, dx, dy);
+	return (direction);
 }
