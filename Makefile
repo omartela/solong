@@ -65,7 +65,10 @@ all: $(LIBFT) $(LIBMLX) $(NAME)
 
 bonus: $(LIBFT) $(LIBMLX) $(NAMEBONUS)
 
-$(LIBMLX): $(MLX_DIR)/CMakeLists.txt
+$(LIBMLX):
+	@if [ ! -d "$(MLX_DIR)" ]; then \
+		git clone https://github.com/codam-coding-college/MLX42.git $(MLX_DIR); \
+	fi
 	@if [ ! -d "$(MLX_DIR)/build" ]; then \
 		cmake $(MLX_DIR) -B $(MLX_DIR)/build; \
 	fi
@@ -92,6 +95,7 @@ clean:
 fclean: clean
 	rm -rf $(NAME) $(NAMEBONUS)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
+	rm -rf $(MLX_DIR)
 
 re: fclean all
 
