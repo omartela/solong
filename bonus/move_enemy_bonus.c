@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
-void	move_enemy_up(t_game *game, t_img *enemy)
+static void	move_enemy_up(t_game *game, t_img *enemy)
 {
 	t_img	*obs;
 
@@ -23,7 +23,7 @@ void	move_enemy_up(t_game *game, t_img *enemy)
 	}
 }
 
-void	move_enemy_down(t_game *game, t_img *enemy)
+static void	move_enemy_down(t_game *game, t_img *enemy)
 {
 	t_img	*obs;
 
@@ -35,7 +35,7 @@ void	move_enemy_down(t_game *game, t_img *enemy)
 	}
 }
 
-void	move_enemy_left(t_game *game, t_img *enemy)
+static void	move_enemy_left(t_game *game, t_img *enemy)
 {
 	t_img	*obs;
 
@@ -49,7 +49,7 @@ void	move_enemy_left(t_game *game, t_img *enemy)
 	}
 }
 
-void	move_enemy_right(t_game *game, t_img *enemy)
+static void	move_enemy_right(t_game *game, t_img *enemy)
 {
 	t_img	*obs;
 

@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
-void close_window(void *param)
+void	close_window(void *param)
 {
-	t_game *game;
+	t_game	*game;
+
 	game = (t_game *)param;
 	free_game_assets(game);
 }

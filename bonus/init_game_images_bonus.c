@@ -22,65 +22,7 @@ void	init_image_indexes(t_img *img, int last_li_index, int last_ri_index)
 	img->previous_dir = 'r';
 }
 
-int	init_enemy_images(t_game *game, t_list **llist)
-{
-	t_img	*img;
-
-	load_image_to_struct(llist, "png/goblinright-1.png", game->mlx);
-	img = (t_img *)(*llist)->next->next->next->next->content;
-	img->right_images[0] = "png/goblinright-1.png";
-	img->right_images[1] = "png/goblinright-2.png";
-	img->right_images[2] = "png/goblinright-3.png";
-	img->right_images[3] = "png/goblinright-4.png";
-	img->right_images[4] = "png/goblinright-5.png";
-	img->right_images[5] = "png/goblinright-6.png";
-	img->right_images[6] = "png/goblinright-7.png";
-	img->right_images[7] = "png/goblinright-8.png";
-	img->right_images[8] = "png/goblinright-9.png";
-	img->left_images[0] = "png/goblinleft-1.png";
-	img->left_images[1] = "png/goblinleft-2.png";
-	img->left_images[2] = "png/goblinleft-3.png";
-	img->left_images[3] = "png/goblinleft-4.png";
-	img->left_images[4] = "png/goblinleft-5.png";
-	img->left_images[5] = "png/goblinleft-6.png";
-	img->left_images[6] = "png/goblinleft-7.png";
-	img->left_images[7] = "png/goblinleft-8.png";
-	img->left_images[8] = "png/goblinleft-9.png";
-	img->r_idle_images[0] = "png/goblinright-1.png";
-	img->l_idle_images[0] = "png/goblinleft-1.png";
-	init_image_indexes(img, 8, 8);
-	return (1);
-}
-
-int	init_player_images(t_game *game, t_list **llist)
-{
-	t_img	*img;
-
-	load_image_to_struct(llist, "png/DwarfSprite1.png", game->mlx);
-	img = (t_img *)(*llist)->content;
-	img->right_images[0] = "png/dwalk1.png";
-	img->right_images[1] = "png/dwalk2.png";
-	img->right_images[2] = "png/dwalk3.png";
-	img->right_images[3] = "png/dwalk4.png";
-	img->right_images[4] = "png/dwalk5.png";
-	img->right_images[5] = "png/dwalk6.png";
-	img->right_images[6] = "png/dwalk7.png";
-	img->right_images[7] = "png/dwalk8.png";
-	img->left_images[0] = "png/dwalk1_left.png";
-	img->left_images[1] = "png/dwalk2_left.png";
-	img->left_images[2] = "png/dwalk3_left.png";
-	img->left_images[3] = "png/dwalk4_left.png";
-	img->left_images[4] = "png/dwalk5_left.png";
-	img->left_images[5] = "png/dwalk6_left.png";
-	img->left_images[6] = "png/dwalk7_left.png";
-	img->left_images[7] = "png/dwalk8_left.png";
-	img->r_idle_images[0] = "png/DwarfSprite1.png";
-	img->l_idle_images[0] = "png/DwarfSprite_left.png";
-	init_image_indexes(img, 7, 7);
-	return (1);
-}
-
-void	resize_images(t_list **llist)
+static void	resize_images(t_list **llist)
 {
 	void	*content;
 

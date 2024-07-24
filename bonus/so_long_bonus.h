@@ -115,10 +115,16 @@ void	move_enemy(void *content);
 int		check_visited(t_game *game, t_bfs *bfs);
 void	find_player_pos(t_game *game);
 void	init_bfs(t_bfs *bfs);
-int		lcg(void);
-int		generate_random_number(unsigned long next);
 char	get_direction(t_game *game);
 void	print_moves_and_score(t_game *game);
 void	free_game_assets(t_game *game);
+int		init_enemy_images(t_game *game, t_list **llist);
+int		init_player_images(t_game *game, t_list **llist);
+void	init_image_indexes(t_img *img, int last_li_index, int last_ri_index);
+void	move_up(t_game *game);
+void	move_down(t_game *game);
+void	move_right(t_game *game);
+void	move_left(t_game *game);
+void	ft_hook_movement(mlx_key_data_t keydata, void *param);
 
 #endif
