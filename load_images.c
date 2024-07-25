@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:32:17 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/10 09:09:32 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:24:27 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -18,15 +18,12 @@ int	load_image_to_struct(t_list **llist, char *str, mlx_t *mlx)
 
 	img_s = malloc(sizeof(t_img));
 	if (!img_s)
-	{
 		return (0);
-	}
 	else
 	{
 		img_s->mlx = mlx;
 		img_s->texture = NULL;
-		load_image(str, mlx, img_s);
-		if (img_s->image)
+		if (load_image(str, mlx, img_s))
 		{
 			new = ft_lstnew(img_s);
 			ft_lstadd_back(llist, new);
@@ -34,6 +31,7 @@ int	load_image_to_struct(t_list **llist, char *str, mlx_t *mlx)
 		}
 		else
 		{
+			free(img_s);
 			return (0);
 		}
 	}
@@ -71,12 +69,14 @@ int	load_image(char *str, mlx_t *mlx, t_img *i_s)
 	mlx_image_t		*img;
 
 	img = NULL;
-	load_texture(str, i_s);
-	if (i_s->texture)
+	i_s->image = img;
+	if (load_texture(str, i_s))
 	{
 		img = mlx_texture_to_image(mlx, i_s->texture);
 		mlx_delete_texture(i_s->texture);
 	}
+	else
+		return (0);
 	if (!img)
 	{
 		error("Load image failed");

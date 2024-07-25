@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 23:33:59 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/22 10:16:41 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:45:34 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -33,10 +33,13 @@ void	free_game_assets(t_game *game)
 	t_list	*llist;
 
 	llist = game->llist;
-	if (llist && game->map)
+	if (game->map)
 	{
 		free_map(game->map, game->map_height);
 		game->map = NULL;
+	}
+	if (llist)
+	{
 		ft_lstclear(&llist, &delete_img_node);
 		game->llist = NULL;
 	}

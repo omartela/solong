@@ -6,14 +6,15 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:05:25 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/22 10:18:10 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:59:55 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
 
-void close_window(void *param)
+void	close_window(void *param)
 {
-	t_game *game;
+	t_game	*game;
+
 	game = (t_game *)param;
 	free_game_assets(game);
 }
@@ -22,6 +23,7 @@ int	main(int argc, char *argv[])
 {
 	t_game		game;
 
+	ft_memset(&game, 0, sizeof(t_game));
 	if (argc == 2)
 	{
 		game.filename = argv[1];
