@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 23:03:40 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/25 16:35:20 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:51:26 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -26,7 +26,7 @@ int	init_game_images(t_game *game, t_list **llist)
 		exit_game(game, 1);
 		return (0);
 	}
-	if (!load_image_to_struct(llist, "png/amethystiii.png", game->mlx))
+	if (!load_image_to_struct(llist, "png/amethyst.png", game->mlx))
 	{
 		exit_game(game, 1);
 		return (0);
