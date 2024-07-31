@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: omartela <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/05/30 22:32:46 by omartela          #+#    #+#              #
-#    Updated: 2024/07/24 12:28:26 by omartela         ###   ########.fr        #
+#    Created: 2024/07/31 08:57:09 by omartela          #+#    #+#              #
+#    Updated: 2024/07/31 08:57:14 by omartela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,10 +53,8 @@ MLX_DIR = ./MLX42
 MLX_HEADER = -I $(MLX_DIR)/include
 HEADERS = -I. $(MLX_HEADER) -I$(LIBFT_DIR)
 LIBMLX = $(MLX_DIR)/build/libmlx42.a
-#LIBGLFW = /Users/irychkov/.brew/Cellar/glfw/3.4/lib/libglfw.3.dylib
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
-#OSFLAGS = $(LIBGLFW) -framework Cocoa -framework OpenGL -framework IOKit
 OSFLAGS = -ldl -lglfw -pthread -lm
 CFLAGS = -Wall -Wextra -Werror
 CC = cc
