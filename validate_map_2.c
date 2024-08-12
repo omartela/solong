@@ -22,7 +22,7 @@ static int	validate_file_ext(char *file)
 		error("Invalid file name or extension");
 		return (0);
 	}
-	if (ft_strncmp(ext, ".ber", 4) != 0)
+	if (ft_strncmp(ext, ".ber\0", 5) != 0)
 	{
 		error("Invalid file name or extension");
 		return (0);
@@ -43,13 +43,7 @@ static void	check_character(t_game *game, int c)
 static int	validate_map_char(char c)
 {
 	if (ft_strchr("PC1E0", c))
-	{
 		return (1);
-	}
-	else
-	{
-		return (0);
-	}
 	return (0);
 }
 

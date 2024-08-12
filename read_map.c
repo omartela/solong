@@ -41,11 +41,12 @@ void	extract_map_data(t_game *game, t_list **llist)
 	}
 }
 
-static int	check_empty_file(int fd, char **line)
+static int	check_empty_file(int fd, char **line, char **map)
 {
 	*line = get_next_line(fd);
 	if (!(*line))
 	{
+		free(map);
 		error("Read failed or empty file");
 		return (0);
 	}
@@ -58,7 +59,7 @@ static int	read_lines(int fd, char ***map, t_game *game)
 	int		ln;
 
 	line = NULL;
-	if (!check_empty_file(fd, &line))
+	if (!check_empty_file(fd, &line, *map))
 		return (0);
 	(*map)[0] = line;
 	ln = 1;

@@ -17,8 +17,8 @@
 # define WALLS_SIDES "Invalid map, side walls fail\n"
 # define WALLS_TOP "Invalid map, top walls fail\n"
 # define WALLS_TOP_BOT "Invalid map, bottom or top walls fail\n"
-# define WALLS_RECTANGLE "Invalid map, map is not rectangle\n"
-# define MAP_CHARS "Invalid map, map has invalid character \n"
+# define WALLS_RECTANGLE "Invalid map, map is not rectangle or extra newlines\n"
+# define MAP_CHARS "Invalid map, map has invalid character or extra newlines \n"
 
 # include <unistd.h>
 # include <stdlib.h>

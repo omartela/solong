@@ -47,7 +47,7 @@ void	ft_hook_movement(mlx_key_data_t keydata, void *param)
 	}
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		flag = 1;
-	if (check_exit(game, player))
+	if (check_exit(game, player) && keydata.action == MLX_RELEASE)
 		flag = 1;
 	exit_game(game, flag);
 }

@@ -87,12 +87,7 @@ int	init_game(t_game *game)
 		return (0);
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	if (!init_game_images(game, &llist))
-	{
-		ft_lstclear(&llist, &delete_img_node);
-		exit_game(game, 1);
-		mlx_terminate(game->mlx);
 		return (0);
-	}
 	extract_map_data(game, &llist);
 	game->llist = llist;
 	return (1);

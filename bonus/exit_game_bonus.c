@@ -32,20 +32,13 @@ void	free_map(char **map, size_t i)
 
 void	free_game_assets(t_game *game)
 {
-	t_list *llist;
+	t_list	*llist;
 
 	llist = game->llist;
-
-	if (game->map)
-	{
-		free_map(game->map, game->map_height);
-		game->map = NULL;
-	}
-	if (llist)
-	{
-		ft_lstclear(&llist, &delete_img_node);
-		game->llist = NULL;
-	}
+	free_map(game->map, game->map_height);
+	game->map = NULL;
+	ft_lstclear(&llist, &delete_img_node);
+	llist = NULL;
 }
 
 int	exit_game(t_game *game, int flag)

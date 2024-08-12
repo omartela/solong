@@ -18,9 +18,15 @@ static int	validate_file_ext(char *file)
 	ext = NULL;
 	ext = ft_strrchr(file, '.');
 	if (ext == NULL)
+	{
+		error("Invalid file name or extension");
 		return (0);
+	}
 	if (ft_strncmp(ext, ".ber\0", 5) != 0)
+	{
+		error("Invalid file name or extension");
 		return (0);
+	}
 	return (1);
 }
 
@@ -39,13 +45,7 @@ static void	check_character(t_game *game, int c)
 static int	validate_map_char(char c)
 {
 	if (ft_strchr("PC1!E0", c))
-	{
 		return (1);
-	}
-	else
-	{
-		return (0);
-	}
 	return (0);
 }
 
@@ -54,7 +54,6 @@ static int	validate_map_chars(t_game *game)
 	size_t	h;
 	size_t	w;
 
-	w = 0;
 	h = 0;
 	while (h < game->map_height)
 	{
@@ -62,16 +61,20 @@ static int	validate_map_chars(t_game *game)
 		while (w < game->map_width)
 		{
 			if (!validate_map_char(game->map[h][w]))
+			{
+				error(MAP_CHARS);
 				return (0);
+			}
 			check_character(game, game->map[h][w]);
 			++w;
 		}
 		++h;
 	}
 	if (game->collectibles < 1 || game->players != 1 || game->exits != 1)
+	{
+		error("Too few or too many players, enemies, collectibles or exits");
 		return (0);
-	if (game->enemies != 1)
-		return (0);
+	}
 	return (1);
 }
 
@@ -81,5 +84,10 @@ int	validate_map_chars_and_ext(t_game *game)
 		return (0);
 	if (!validate_map_chars(game))
 		return (0);
+	if (game->enemies != 1)
+	{
+		error("Too few or too many players, enemies, collectibles or exits");
+		return (0);
+	}
 	return (1);
 }
