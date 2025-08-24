@@ -1,0 +1,21 @@
+# Object files
+*.o
+
+# Executables
+so_long
+so_long_bonus
+
+# Library files
+*.a
+
+# Build directories
+MLX42/
+libft/*.o
+libft/libft.a
+
+# System files
+.DS_Store
+
+# Debug files
+*.dSYM/
+*.su
